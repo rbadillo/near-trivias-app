@@ -1,12 +1,74 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <title>Blank App</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+	    <meta name="format-detection" content="telephone=no" />
+	    <meta name="msapplication-tap-highlight" content="no" />
+	    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+	    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+        <title>Trivias Near</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	    <script type="text/javascript" src="js/TimeCircles.js"></script>
+	    <link rel="stylesheet" href="css/TimeCircles.css" />
+	    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     </head>
     <body>
         <script type="text/javascript" src="cordova.js"></script>
-        Trivia Near
+        <script type="text/javascript" src="js/index.js"></script>
+	    <script type="text/javascript">
+	        app.initialize();
+	    </script>
+	    <script type="text/javascript">
+	    	function onYouTubeIframeAPIReady() {
+	            var player;
+
+	            player = new YT.Player('muteYouTubeVideoPlayer', {
+	                videoId: 'fUez4wACAGs', // YouTube Video ID
+	                width: 350,  // Player width (in px)
+	                height: 200,              // Player height (in px)
+	                playerVars: {
+	                    autoplay: 1,        // Auto-play the video on load
+	                    controls: 0,        // Show pause/play buttons in player
+	                    disablekb: 1,       // Disable Keyboard
+	                    modestbranding: 1,  // Hide the Youtube Logo
+	                    rel: 0, // Hide closed captions
+	                    showinfo: 0,        // Hide the video title
+	                },
+	                events: {
+	                    onReady: function(e) {
+	                        console.log("Youtube onReady")
+	                        player.mute();
+	                    },
+	                    onStateChange: function(e){
+	                      if(e.data == 2)
+	                      {
+	                          player.unMute();
+	                          player.playVideo();
+	                      }
+	                    }
+	                  }
+	            });
+        	}
+	    </script>
+        <center>
+	        <b><div>Descubre Near - Trivia</b></div>
+	        <br>
+	        <div id="muteYouTubeVideoPlayer" allowfullscreen="false"></div>
+	        <script async src="https://www.youtube.com/iframe_api"></script>
+
+	        <div id="CountDownTimer" style="width: 65px; height: 65px; visibility:hidden;"></div>
+	        <hr>
+	        <b><div id='question'></div></b>
+	        <hr>
+	        <button id='btn1' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('1')"></button>
+	        <br><br>
+	        <button id='btn2' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('2')"></button>
+	        <br><br>
+	        <button id='btn3' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('3')"></button>
+	        <br><br>
+	        <b><div id='game'></div></b>
+	        <b><div id='late'></div></b>
+    	</center>
     </body>
 </html>
