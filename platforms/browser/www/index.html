@@ -6,12 +6,13 @@
 	    <meta name="format-detection" content="telephone=no" />
 	    <meta name="msapplication-tap-highlight" content="no" />
 	    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-	    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+	    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src * 'unsafe-inline'; media-src *" />
         <title>Trivias Near</title>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	    <script type="text/javascript" src="js/TimeCircles.js"></script>
 	    <link rel="stylesheet" href="css/TimeCircles.css" />
 	    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+	    <link rel="stylesheet" type="text/css" href="css/index.css" />
     </head>
     <body>
         <script type="text/javascript" src="cordova.js"></script>
@@ -19,14 +20,31 @@
 	    <script type="text/javascript">
 	        app.initialize();
 	    </script>
+	    <div class="login-page">
+		  <div class="form">
+		    <form class="register-form">
+		      <input type="text" placeholder="name"/>
+		      <input type="password" placeholder="password"/>
+		      <input type="text" placeholder="email address"/>
+		      <button>create</button>
+		      <p class="message" onClick="app.toLoginForm()">Already registered? <a href="#">Sign In</a></p>
+		    </form>
+		    <form class="login-form">
+		      <input type="text" id="username" placeholder="username"/>
+		      <input type="password" placeholder="password"/>
+		      <button onClick="app.toPlayLand()">login</button>
+		      <p class="message" onClick="app.toRegisterForm()">Not registered? <a href="#">Create an account</a></p>
+		    </form>
+		  </div>
+		</div>
 	    <script type="text/javascript">
 	    	function onYouTubeIframeAPIReady() {
 	            var player;
 
-	            player = new YT.Player('muteYouTubeVideoPlayer', {
+	            player = new YT.Player('livestreaming', {
 	                videoId: 'fUez4wACAGs', // YouTube Video ID
-	                width: 350,  // Player width (in px)
-	                height: 200,              // Player height (in px)
+	                width: 600,  // Player width (in px)
+	                height: 200, // Player height (in px)
 	                playerVars: {
 	                    autoplay: 1,        // Auto-play the video on load
 	                    controls: 0,        // Show pause/play buttons in player
@@ -51,24 +69,26 @@
 	            });
         	}
 	    </script>
-        <center>
-	        <b><div>Descubre Near - Trivia</b></div>
-	        <br>
-	        <div id="muteYouTubeVideoPlayer" allowfullscreen="false"></div>
-	        <script async src="https://www.youtube.com/iframe_api"></script>
 
-	        <div id="CountDownTimer" style="width: 65px; height: 65px; visibility:hidden;"></div>
-	        <hr>
-	        <b><div id='question'></div></b>
-	        <hr>
-	        <button id='btn1' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('1')"></button>
-	        <br><br>
-	        <button id='btn2' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('2')"></button>
-	        <br><br>
-	        <button id='btn3' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('3')"></button>
-	        <br><br>
-	        <b><div id='game'></div></b>
-	        <b><div id='late'></div></b>
-    	</center>
+	    <div class="playland">
+
+	    	<center>
+	        <div id="livestreaming" class="youtube" allowfullscreen="false"></div>
+		    <script async src="https://www.youtube.com/iframe_api"></script>
+		    <div id="CountDownTimer" style="width: 65px; height: 65px; visibility:hidden;"></div>
+			</center>
+		    <hr>
+		    <b><div id='question'></div></b>
+		    <hr>
+		    <button id='btn1' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('1')"></button>
+		    <br><br>
+		    <button id='btn2' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('2')"></button>
+		    <br><br>
+		    <button id='btn3' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('3')"></button>
+		    <br><br>
+		    <b><div id='game'></div></b>
+		    <b><div id='late'></div></b>
+
+    	</div>
     </body>
 </html>

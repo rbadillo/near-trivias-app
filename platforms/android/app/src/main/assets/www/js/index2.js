@@ -35,55 +35,6 @@ var app = {
     onDeviceReady: function() {
         // Now safe to use device APIs
         console.log("DEVICE READY")
-    },
-
-    seconds_since_epoch: function(){
-        return Math.floor( Date.now() / 1000 ) 
-    },
-
-    submitAnswer: function(button_clicked){
-
-        player_answer = button_clicked
-
-        $('#btn1').prop('disabled', true);
-        $('#btn2').prop('disabled', true);
-        $('#btn3').prop('disabled', true);
-
-        var payload = {
-          user : window.localStorage["username"], 
-          answer : player_answer,
-        }
-
-        $.ajax({
-              type: "POST",
-              url: "http://trivia.descubrenear.com:5000/answer",
-              data: JSON.stringify(payload),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function(data){
-                  $('#game').text(data.msg);
-              },
-              failure: function(errMsg) {
-                  $('#game').text(errMsg.msg);
-              }
-        });
-    },
-
-    toLoginForm: function(){
-        $(".register-form").hide();
-        $(".login-form").show();
-    },
-
-    toRegisterForm: function(){
-        $(".login-form").hide();
-        $(".register-form").show();
-    },
-
-    toPlayLand: function(){
-        $(".form").hide();
-        $(".login-form").hide();
-        $(".register-form").hide();
-        $(".playland").show();
 
         var active_player = true;
         var player_answer = 0;
@@ -101,10 +52,7 @@ var app = {
             fg_width: 0.08
         }
 
-        var username= $('#username').val();
-        console.log("Username: "+username)
-        window.localStorage["username"] = username;
-        var server_url = "http://trivia.descubrenear.com:5000?username="+username
+        var server_url = "http://trivia.descubrenear.com:5000"
         var socket = io(server_url);
 
         socket.on('contest', function(msg){
@@ -250,5 +198,47 @@ var app = {
             $('#late').text(msg.sorry);
 
         });
+    },
+
+    seconds_since_epoch: function(){
+        return Math.floor( Date.now() / 1000 ) 
+    },
+
+    submitAnswer: function(button_clicked){
+
+        player_answer = button_clicked
+
+        $('#btn1').prop('disabled', true);
+        $('#btn2').prop('disabled', true);
+        $('#btn3').prop('disabled', true);
+
+        var payload = {
+          user : "rbadillo", 
+          answer : player_answer,
+        }
+
+        $.ajax({
+              type: "POST",
+              url: "http://trivia.descubrenear.com:5000/answer",
+              data: JSON.stringify(payload),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(data){
+                  $('#game').text(data.msg);
+              },
+              failure: function(errMsg) {
+                  $('#game').text(errMsg.msg);
+              }
+        });
+    },
+
+    toLoginForm: function(){
+        $(".register-form").hide();
+        $(".login-form").show();
+    },
+
+    toRegisterForm: function(){
+        $(".login-form").hide();
+        $(".register-form").show();
     }
 };
