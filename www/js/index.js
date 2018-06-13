@@ -16,6 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+// Global Variable
+var player_answer = 0;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -87,7 +91,6 @@ var app = {
         $(".form").hide();
 
         var active_player = true;
-        var player_answer = 0;
 
         var default_count_down_timer = { 
             time: { 
@@ -200,6 +203,9 @@ var app = {
 
             // rebuild Timer
             $("#CountDownTimer").TimeCircles().rebuild();
+            console.log("Timeout, checking flag active_player: " +active_player)
+            console.log(msg.answer)
+            console.log(player_answer)
 
         });
 
