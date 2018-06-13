@@ -43,12 +43,12 @@
 .form button:hover,.form button:active,.form button:focus {
   background: #43A047;
 }
-.form .message {
+.form .messageLogin {
   margin: 15px 0 0;
   color: #b3b3b3;
   font-size: 12px;
 }
-.form .message a {
+.form .messageLogin a {
   color: #4CAF50;
   text-decoration: none;
 }
@@ -117,4 +117,7 @@ body {
   border: 0;
   box-sizing: border-box;
   font-size: 14px;
+}
+.framework7-root{
+  background: #76b852; 
 }

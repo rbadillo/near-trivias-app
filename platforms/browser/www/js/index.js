@@ -56,7 +56,7 @@ var app = {
 
         $.ajax({
               type: "POST",
-              url: "http://trivia.descubrenear.com:5000/answer",
+              url: "http://trivias.descubrenear.com:5000/answer",
               data: JSON.stringify(payload),
               contentType: "application/json; charset=utf-8",
               dataType: "json",
@@ -80,10 +80,11 @@ var app = {
     },
 
     toPlayLand: function(){
-        $(".form").hide();
+        $(".views").show();
+        $(".playland").show();
         $(".login-form").hide();
         $(".register-form").hide();
-        $(".playland").show();
+        $(".form").hide();
 
         var active_player = true;
         var player_answer = 0;
@@ -104,7 +105,7 @@ var app = {
         var username= $('#username').val();
         console.log("Username: "+username)
         window.localStorage["username"] = username;
-        var server_url = "http://trivia.descubrenear.com:5000?username="+username
+        var server_url = "http://trivias.descubrenear.com:5000?username="+username
         var socket = io(server_url);
 
         socket.on('contest', function(msg){
