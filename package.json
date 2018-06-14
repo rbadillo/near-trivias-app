@@ -1,1 +1,1 @@
-{"name":"com.descubrenear.trivia","version":"1.0.0","displayName":"Trivia Near","cordova":{"platforms":["android"]},"dependencies":{"cordova-android":"~7.0.0"}}
+{"name":"com.descubrenear.trivia","version":"1.0.0","displayName":"Trivias Near","cordova":{"platforms":["android"]},"dependencies":{"cordova-android":"~7.0.0"}}
