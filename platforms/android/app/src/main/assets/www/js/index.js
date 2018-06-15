@@ -20,6 +20,9 @@
 // Global Variable
 var player_answer = 0;
 
+var youtube_player_height = 0;
+var youtube_player_width = 0;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -118,6 +121,9 @@ var app = {
         var server_url = "http://trivias.descubrenear.com:5000?username="+username
         var socket = io(server_url);
 
+        youtube_player_height = $('#livestreaming').height();
+        youtube_player_width = $('#livestreaming').width();
+
         socket.on('contest', function(msg){
 
             if(active_player)
@@ -143,6 +149,8 @@ var app = {
             console.log(client_epoch)
             console.log(msg)
 
+            document.getElementById("livestreaming").style.height = 0;
+            document.getElementById("livestreaming").style.width = 0;
             document.getElementById("question").style.visibility = "visible";
             document.getElementById("btn1").style.visibility = "visible";
             document.getElementById("btn2").style.visibility = "visible";
@@ -206,6 +214,10 @@ var app = {
 
         socket.on('timeout', function(msg){
 
+            console.log("TIMEOUT")
+            $('#livestreaming').height(youtube_player_height);
+            $('#livestreaming').width(youtube_player_width);
+
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
@@ -230,6 +242,10 @@ var app = {
         });
 
         socket.on('end_game', function(msg){
+
+            console.log("end_game")
+            $('#livestreaming').height(youtube_player_height);
+            $('#livestreaming').width(youtube_player_width);
 
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
