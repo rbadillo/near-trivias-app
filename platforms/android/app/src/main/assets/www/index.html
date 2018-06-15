@@ -13,7 +13,6 @@
 	    <link rel="stylesheet" href="css/TimeCircles.css" />
 	    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 	    <link rel="stylesheet" type="text/css" href="css/index.css" />
-
 	    <link rel="stylesheet" type="text/css" href="css/framework7.ios.min.css">
     	<link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
     	<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -122,10 +121,6 @@
 	        <div class="panel-line"></div>
 	        <div class="panel-social-networks">
 	          <a href="#"><i class="icon ion-social-facebook"></i></a>
-	          <a href="#"><i class="icon ion-social-twitter"></i></a>
-	          <a href="#"><i class="icon ion-social-googleplus"></i></a>
-	          <a href="#"><i class="icon ion-social-whatsapp"></i></a>
-	          <a href="#"><i class="icon ion-social-linkedin"></i></a>
 	        </div>
 	      </div>
 	    </div>
@@ -146,24 +141,23 @@
 
 
 	    <div class="playland">
-	    	<center>
 	        <div id="livestreaming" class="youtube" allowfullscreen="false"></div>
 		    <script async src="https://www.youtube.com/iframe_api"></script>
-		    <div id="CountDownTimer" style="width: 65px; height: 65px; visibility:hidden;"></div>
+		    <center>
+		    <div id="CountDownTimer" style="width: 45px; height: 45px; visibility:hidden;"></div>
 			</center>
 		    <hr>
 		    <b><div id='question'></div></b>
 		    <hr>
-		    <button id='btn1' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('1')"></button>
+		    <button id='btn1' type="button" style="visibility:hidden;" onclick="app.submitAnswer('1')"></button>
 		    <br><br>
-		    <button id='btn2' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('2')"></button>
+		    <button id='btn2' type="button" style="visibility:hidden;" onclick="app.submitAnswer('2')"></button>
 		    <br><br>
-		    <button id='btn3' type="button" style="width: 85px; height: 30px; visibility:hidden;" onclick="app.submitAnswer('3')"></button>
+		    <button id='btn3' type="button" style="visibility:hidden;" onclick="app.submitAnswer('3')"></button>
 		    <br><br>
-		    <b><div id='game'></div></b>
-		    <b><div id='late'></div></b>
+		    <button id='btn4' type="button" style="visibility:hidden;" onclick="app.submitAnswer('4')"></button>
+		    <br><br>
     	</div>
-
 
 
             	</div>

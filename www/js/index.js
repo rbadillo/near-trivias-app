@@ -52,6 +52,12 @@ var app = {
         $('#btn1').prop('disabled', true);
         $('#btn2').prop('disabled', true);
         $('#btn3').prop('disabled', true);
+        $('#btn4').prop('disabled', true);
+
+        $('#btn1').css('background','#262626');
+        $('#btn2').css('background','#262626');
+        $('#btn3').css('background','#262626');
+        $('#btn4').css('background','#262626');
 
         var payload = {
           user : window.localStorage["username"], 
@@ -65,10 +71,10 @@ var app = {
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               success: function(data){
-                  $('#game').text(data.msg);
+                  console.log(data.msg);
               },
               failure: function(errMsg) {
-                  $('#game').text(errMsg.msg);
+                  console.log(errMsg.msg);
               }
         });
     },
@@ -86,6 +92,7 @@ var app = {
     toPlayLand: function(){
         $(".views").show();
         $(".playland").show();
+        $(".login-page").hide();
         $(".login-form").hide();
         $(".register-form").hide();
         $(".form").hide();
@@ -97,12 +104,12 @@ var app = {
                 Days: { show: false },
                 Hours: { show: false }, 
                 Minutes: { show: false },
-                Seconds: { color: "#8cc541" }
+                Seconds: { color: "#8cc541", "text": "" }
             }, 
             count_past_zero: false,
             total_duration : 11,
             start: false,
-            fg_width: 0.08
+            fg_width: 0.12
         }
 
         var username= $('#username').val();
@@ -118,8 +125,12 @@ var app = {
               $('#btn1').prop('disabled', false);
               $('#btn2').prop('disabled', false);
               $('#btn3').prop('disabled', false);
-              $('#game').text("GAME OVER");
-              $('#game').hide();
+              $('#btn4').prop('disabled', false);
+
+              $('#btn1').css('background','#4CAF50');
+              $('#btn2').css('background','#4CAF50');
+              $('#btn3').css('background','#4CAF50');
+              $('#btn4').css('background','#4CAF50');
             }
 
             var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
@@ -136,6 +147,7 @@ var app = {
             document.getElementById("btn1").style.visibility = "visible";
             document.getElementById("btn2").style.visibility = "visible";
             document.getElementById("btn3").style.visibility = "visible";
+            document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
             document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
 
@@ -148,6 +160,7 @@ var app = {
             $('#btn1').text(msg.option_1);
             $('#btn2').text(msg.option_2);
             $('#btn3').text(msg.option_3);
+            $('#btn4').text(msg.option_4);
         });
 
       
@@ -157,7 +170,8 @@ var app = {
             {
               $('#btn1').prop('disabled', true);
               $('#btn2').prop('disabled', true);
-              $('#btn3').prop('disabled', true);   
+              $('#btn3').prop('disabled', true); 
+              $('#btn4').prop('disabled', true);   
             }
 
             var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
@@ -174,6 +188,7 @@ var app = {
             document.getElementById("btn1").style.visibility = "visible";
             document.getElementById("btn2").style.visibility = "visible";
             document.getElementById("btn3").style.visibility = "visible";
+            document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
             document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
 
@@ -186,7 +201,7 @@ var app = {
             $('#btn1').text(msg.option_1);
             $('#btn2').text(msg.option_2);
             $('#btn3').text(msg.option_3);
-            $('#game').text(msg.msg);
+            $('#btn4').text(msg.option_4);
         });
 
         socket.on('timeout', function(msg){
@@ -194,7 +209,12 @@ var app = {
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
-            $('#game').show();
+            $('#btn4').prop('disabled', true);
+
+            $('#btn1').css('background','#262626');
+            $('#btn2').css('background','#262626');
+            $('#btn3').css('background','#262626');
+            $('#btn4').css('background','#262626');
 
             if(msg.answer != player_answer)
             {
@@ -214,8 +234,7 @@ var app = {
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
-            $('#game').text(msg.msg);
-            $('#game').show();
+            $('#btn4').prop('disabled', true);
 
         });
 
@@ -228,6 +247,7 @@ var app = {
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
+            $('#btn4').prop('disabled', true);
 
             var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
 
@@ -242,6 +262,7 @@ var app = {
             document.getElementById("btn1").style.visibility = "visible";
             document.getElementById("btn2").style.visibility = "visible";
             document.getElementById("btn3").style.visibility = "visible";
+            document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
             document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
 
@@ -254,6 +275,7 @@ var app = {
             $('#btn1').text(msg.option_1);
             $('#btn2').text(msg.option_2);
             $('#btn3').text(msg.option_3);
+            $('#btn4').text(msg.option_4);
             $('#late').text(msg.sorry);
 
         });
