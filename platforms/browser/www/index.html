@@ -44,10 +44,13 @@
 		      <input type="password" placeholder="Contraseña"/>
 		      <button type="button" onClick="app.toPlayLand()">Iniciar sesión</button>
 		      <p class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></p>
+		      <audio id="audioplay" src="http://www.sounddogs.com/sound-effects/104/mp3/490284_SOUNDDOGS__ch.mp3"></audio>
+		      <a onclick="document.getElementById('audioplay').play()" >Cheer</a>
 		    </form>
 		  </div>
 		</div>
 	    <script type="text/javascript">
+
 	    	function onYouTubeIframeAPIReady() {
 	            var player;
 
@@ -91,20 +94,6 @@
 	            <li>
 	              <a href="#" class="item-content item-link close-panel">
 	                <div class="item-inner">
-	                  <div class="item-title"><i class="icon ion-android-home"></i>Inicio</div>
-	                </div>
-	              </a>
-	            </li>
-	            <li>
-	              <a href="#" class="item-content item-link close-panel">
-	                <div class="item-inner">
-	                  <div class="item-title"><i class="icon ion-compose"></i>Lista de ganadores</div>
-	                </div>
-	              </a>
-	            </li>
-	            <li>
-	              <a href="#" class="item-content item-link close-panel">
-	                <div class="item-inner">
 	                  <div class="item-title"><i class="icon ion-person"></i>Perfil</div>
 	                </div>
 	              </a>
@@ -139,16 +128,16 @@
 	          	<div class="page-content" id="indexPage">
 
 
-
+	    <div id="livestreaming" class="youtube" allowfullscreen="false"></div>
+		<script async src="https://www.youtube.com/iframe_api"></script>
 	    <div class="playland">
-	        <div id="livestreaming" class="youtube" allowfullscreen="false"></div>
-		    <script async src="https://www.youtube.com/iframe_api"></script>
+
 		    <center>
-		    <div id="CountDownTimer" style="width: 45px; height: 45px; visibility:hidden;"></div>
+		    <div id="CountDownTimer" style="width: 65px; height: 65px; visibility:hidden;"></div>
 			</center>
-		    <hr>
+
 		    <b><div id='question'></div></b>
-		    <hr>
+
 		    <button id='btn1' type="button" style="visibility:hidden;" onclick="app.submitAnswer('1')"></button>
 		    <br><br>
 		    <button id='btn2' type="button" style="visibility:hidden;" onclick="app.submitAnswer('2')"></button>

@@ -94,7 +94,6 @@ var app = {
 
     toPlayLand: function(){
         $(".views").show();
-        $(".playland").show();
         $(".login-page").hide();
         $(".login-form").hide();
         $(".register-form").hide();
@@ -121,10 +120,13 @@ var app = {
         var server_url = "http://trivias.descubrenear.com:5000?username="+username
         var socket = io(server_url);
 
-        youtube_player_height = $('#livestreaming').height();
-        youtube_player_width = $('#livestreaming').width();
+        $('#livestreaming').height($(window).height() - $('.navbar').height());
+        $('#livestreaming').width($(window).width())
 
         socket.on('contest', function(msg){
+
+            // Show Question Land
+            $(".playland").show();
 
             if(active_player)
             {
@@ -215,8 +217,10 @@ var app = {
         socket.on('timeout', function(msg){
 
             console.log("TIMEOUT")
-            $('#livestreaming').height(youtube_player_height);
-            $('#livestreaming').width(youtube_player_width);
+            //$('#livestreaming').height(youtube_player_height);
+            //$('#livestreaming').width(youtube_player_width);
+            //$('#livestreaming').height($(window).height() - $('.navbar').height());
+            //$('#livestreaming').width($(window).width())
 
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
@@ -239,19 +243,31 @@ var app = {
             console.log(msg.answer)
             console.log(player_answer)
 
+            setTimeout(function(){ 
+                $('#livestreaming').height($(window).height() - $('.navbar').height());
+                $('#livestreaming').width($(window).width())
+                $(".playland").hide(); 
+            }, 3000);
+
         });
 
         socket.on('end_game', function(msg){
 
             console.log("end_game")
-            $('#livestreaming').height(youtube_player_height);
-            $('#livestreaming').width(youtube_player_width);
+            //$('#livestreaming').height(youtube_player_height);
+            //$('#livestreaming').width(youtube_player_width);
+
 
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
             $('#btn4').prop('disabled', true);
 
+            setTimeout(function(){ 
+                $('#livestreaming').height($(window).height() - $('.navbar').height());
+                $('#livestreaming').width($(window).width())
+                $(".playland").hide(); 
+            }, 3000);
         });
 
         socket.on('game_is_already_on', function(msg){
