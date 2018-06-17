@@ -249,9 +249,6 @@ var app = {
                 $(".playland").hide(); 
             }, 3000);
 
-            var myMedia = new Media("media/time_over.mp3")
-            myMedia.play()
-
         });
 
         socket.on('end_game', function(msg){
@@ -272,8 +269,6 @@ var app = {
                 $(".playland").hide(); 
             }, 3000);
 
-            var myMedia = new Media("media/time_over.mp3")
-            myMedia.play()
         });
 
         socket.on('game_is_already_on', function(msg){
