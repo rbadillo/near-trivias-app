@@ -109,7 +109,7 @@ var app = {
                 Seconds: { color: "#8cc541", "text": "" }
             }, 
             count_past_zero: false,
-            total_duration : 11,
+            total_duration : 10,
             start: false,
             fg_width: 0.12
         }
@@ -141,7 +141,7 @@ var app = {
               $('#btn4').css('background','#4CAF50');
             }
 
-            var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
+            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
 
             if(client_epoch<0)
             {
@@ -184,7 +184,7 @@ var app = {
               $('#btn4').prop('disabled', true);   
             }
 
-            var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
+            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
 
             if(client_epoch<0)
             {
@@ -249,6 +249,9 @@ var app = {
                 $(".playland").hide(); 
             }, 3000);
 
+            var myMedia = new Media("media/time_over.mp3")
+            myMedia.play()
+
         });
 
         socket.on('end_game', function(msg){
@@ -268,6 +271,9 @@ var app = {
                 $('#livestreaming').width($(window).width())
                 $(".playland").hide(); 
             }, 3000);
+
+            var myMedia = new Media("media/time_over.mp3")
+            myMedia.play()
         });
 
         socket.on('game_is_already_on', function(msg){
@@ -281,7 +287,7 @@ var app = {
             $('#btn3').prop('disabled', true);
             $('#btn4').prop('disabled', true);
 
-            var client_epoch = 11 - (app.seconds_since_epoch() - msg.epoch)
+            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
 
             if(client_epoch<0)
             {
