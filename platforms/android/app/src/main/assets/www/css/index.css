@@ -98,6 +98,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+.active-players {
+  font-family: "Roboto", sans-serif;
+  height: 20px;
+  background: #FFFFFF;
+}
+
+.active-players .icon {
+  margin-left: 17px;
+}
 .playland {
   font-family: "Roboto", sans-serif;
   display: none;

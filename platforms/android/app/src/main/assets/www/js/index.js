@@ -120,7 +120,7 @@ var app = {
         var server_url = "http://trivias.descubrenear.com:5000?username="+username
         var socket = io(server_url);
 
-        $('#livestreaming').height($(window).height() - $('.navbar').height());
+        $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
 
         socket.on('contest', function(msg){
@@ -164,7 +164,7 @@ var app = {
             default_count_down_timer["total_duration"] = client_epoch;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
-            $("#CountDownTimer").TimeCircles().start();
+            $("#CountDownTimer").TimeCircles().restart();
 
             $('#question').text(msg.question);
             $('#btn1').text(msg.option_1);
@@ -205,7 +205,7 @@ var app = {
             default_count_down_timer["total_duration"] = client_epoch;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
-            $("#CountDownTimer").TimeCircles().start();
+            $("#CountDownTimer").TimeCircles().restart();
 
             $('#question').text(msg.question);
             $('#btn1').text(msg.option_1);
@@ -217,10 +217,6 @@ var app = {
         socket.on('timeout', function(msg){
 
             console.log("TIMEOUT")
-            //$('#livestreaming').height(youtube_player_height);
-            //$('#livestreaming').width(youtube_player_width);
-            //$('#livestreaming').height($(window).height() - $('.navbar').height());
-            //$('#livestreaming').width($(window).width())
 
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
@@ -244,7 +240,7 @@ var app = {
             console.log(player_answer)
 
             setTimeout(function(){ 
-                $('#livestreaming').height($(window).height() - $('.navbar').height());
+                $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
                 $(".playland").hide(); 
             }, 3000);
@@ -254,17 +250,19 @@ var app = {
         socket.on('end_game', function(msg){
 
             console.log("end_game")
-            //$('#livestreaming').height(youtube_player_height);
-            //$('#livestreaming').width(youtube_player_width);
-
 
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
             $('#btn4').prop('disabled', true);
 
+            $('#btn1').css('background','#262626');
+            $('#btn2').css('background','#262626');
+            $('#btn3').css('background','#262626');
+            $('#btn4').css('background','#262626');
+
             setTimeout(function(){ 
-                $('#livestreaming').height($(window).height() - $('.navbar').height());
+                $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
                 $(".playland").hide(); 
             }, 3000);
@@ -302,7 +300,7 @@ var app = {
             default_count_down_timer["total_duration"] = client_epoch;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
-            $("#CountDownTimer").TimeCircles().start();
+            $("#CountDownTimer").TimeCircles().restart();
 
             $('#question').text(msg.question);
             $('#btn1').text(msg.option_1);
@@ -310,6 +308,14 @@ var app = {
             $('#btn3').text(msg.option_3);
             $('#btn4').text(msg.option_4);
             $('#late').text(msg.sorry);
+
+        });
+
+        socket.on('active_players_count', function(msg){
+
+            console.log("active_players_count")
+
+            $('#activeplayerscount').text(" " +msg.count);
 
         });
     }
