@@ -237,7 +237,8 @@ var app = {
             console.log(msg.answer)
             console.log(player_answer)
 
-            setTimeout(function(){ 
+            setTimeout(function(){
+                document.getElementById("CountDownTimer").setAttribute("data-timer",0); 
                 $("#CountDownTimer").TimeCircles().rebuild();
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
