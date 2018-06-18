@@ -232,14 +232,13 @@ var app = {
             {
               active_player = false;
             }
-
-            // rebuild Timer
-            $("#CountDownTimer").TimeCircles().rebuild();
+            
             console.log("Timeout, checking flag active_player: " +active_player)
             console.log(msg.answer)
             console.log(player_answer)
 
             setTimeout(function(){ 
+                $("#CountDownTimer").TimeCircles().rebuild();
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
                 $(".playland").hide(); 
