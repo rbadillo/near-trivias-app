@@ -23,6 +23,8 @@ var player_answer = 0;
 var youtube_player_height = 0;
 var youtube_player_width = 0;
 
+var global_client_timer = null;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -42,10 +44,6 @@ var app = {
     onDeviceReady: function() {
         // Now safe to use device APIs
         console.log("DEVICE READY")
-    },
-
-    seconds_since_epoch: function(){
-        return Math.floor( Date.now() / 1000 ) 
     },
 
     submitAnswer: function(button_clicked){
@@ -69,7 +67,7 @@ var app = {
 
         $.ajax({
               type: "POST",
-              url: "http://trivias.descubrenear.com:5000/answer",
+              url: "http://trivias.descubrenear.com/answer",
               data: JSON.stringify(payload),
               contentType: "application/json; charset=utf-8",
               dataType: "json",
@@ -100,6 +98,7 @@ var app = {
         $(".form").hide();
 
         var active_player = true;
+        var non_active_player_msg = false;
 
         var default_count_down_timer = { 
             time: { 
@@ -117,7 +116,7 @@ var app = {
         var username= $('#username').val();
         console.log("Username: "+username)
         window.localStorage["username"] = username;
-        var server_url = "http://trivias.descubrenear.com:5000?username="+username
+        var server_url = "http://trivias.descubrenear.com?username="+username
         var socket = io(server_url);
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
@@ -140,15 +139,29 @@ var app = {
               $('#btn3').css('background','#4CAF50');
               $('#btn4').css('background','#4CAF50');
             }
-
-            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
-
-            if(client_epoch<0)
+            else
             {
-              client_epoch = 0
+              $('#btn1').css('background','#262626');
+              $('#btn2').css('background','#262626');
+              $('#btn3').css('background','#262626');
+              $('#btn4').css('background','#262626');              
             }
 
-            console.log(client_epoch)
+            if(global_client_timer == null)
+            {
+                console.log("Init TIMER")
+                global_client_timer = moment()
+            }
+
+            var time_now = moment()
+            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
+
+            if(client_timer<0)
+            {
+              client_timer = 0
+            }
+
+            console.log(client_timer)
             console.log(msg)
 
             document.getElementById("livestreaming").style.height = 0;
@@ -159,9 +172,9 @@ var app = {
             document.getElementById("btn3").style.visibility = "visible";
             document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
-            document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
+            document.getElementById("CountDownTimer").setAttribute("data-timer",client_timer);
 
-            default_count_down_timer["total_duration"] = client_epoch;
+            default_count_down_timer["total_duration"] = client_timer;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
             $("#CountDownTimer").TimeCircles().restart();
@@ -176,6 +189,8 @@ var app = {
       
         socket.on('answer_already_submitted', function(msg){
 
+            console.log("answer_already_submitted")
+
             if(active_player)
             {
               $('#btn1').prop('disabled', true);
@@ -184,14 +199,16 @@ var app = {
               $('#btn4').prop('disabled', true);   
             }
 
-            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
+            var time_now = moment()
+            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
 
-            if(client_epoch<0)
+            if(client_timer<0)
             {
-              client_epoch = 0
+              client_timer = 0
             }
 
-            console.log(client_epoch)
+            console.log(global_client_timer)
+            console.log(client_timer)
             console.log(msg)
 
             document.getElementById("question").style.visibility = "visible";
@@ -200,9 +217,9 @@ var app = {
             document.getElementById("btn3").style.visibility = "visible";
             document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
-            document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
+            document.getElementById("CountDownTimer").setAttribute("data-timer",client_timer);
 
-            default_count_down_timer["total_duration"] = client_epoch;
+            default_count_down_timer["total_duration"] = client_timer;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
             $("#CountDownTimer").TimeCircles().restart();
@@ -228,11 +245,6 @@ var app = {
             $('#btn3').css('background','#262626');
             $('#btn4').css('background','#262626');
 
-            if(msg.answer != player_answer)
-            {
-              active_player = false;
-            }
-            
             console.log("Timeout, checking flag active_player: " +active_player)
             console.log(msg.answer)
             console.log(player_answer)
@@ -241,12 +253,103 @@ var app = {
                 $("#CountDownTimer").TimeCircles().rebuild();
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
-                $(".playland").hide(); 
+                $(".playland").hide();
+                global_client_timer = null;
             }, 3000);
 
         });
 
+
+        socket.on('verify_answer', function(msg){
+
+            // Show Question Land
+            $(".playland").show();
+
+            console.log("verify_answer")
+
+            $('#btn1').prop('disabled', true);
+            $('#btn2').prop('disabled', true);
+            $('#btn3').prop('disabled', true);
+            $('#btn4').prop('disabled', true);
+
+            $('#btn1').css('background','#262626');
+            $('#btn2').css('background','#262626');
+            $('#btn3').css('background','#262626');
+            $('#btn4').css('background','#262626');
+
+            if(msg.answer == "1")
+            {
+              $('#btn1').css('background','#4CAF50');
+            }
+            else if(msg.answer == "2")
+            {
+              $('#btn2').css('background','#4CAF50');
+            }
+            else if(msg.answer == "3")
+            {
+              $('#btn3').css('background','#4CAF50');
+            }
+            else if(msg.answer == "4")
+            {
+              $('#btn4').css('background','#4CAF50');
+            }
+
+            if(active_player && msg.answer != player_answer)
+            {
+                active_player = false;
+
+                if(player_answer == "1")
+                {
+                  $('#btn1').css('background','#FE3838');
+                }
+                else if(player_answer == "2")
+                {
+                  $('#btn2').css('background','#FE3838');
+                }
+                else if(player_answer == "3")
+                {
+                  $('#btn3').css('background','#FE3838');
+                }
+                else if(player_answer == "4")
+                {
+                  $('#btn4').css('background','#FE3838');
+                }
+            }
+            
+            console.log("verify_answer, checking flag active_player: " +active_player)
+            console.log(msg.answer)
+            console.log(player_answer)
+
+            document.getElementById("livestreaming").style.height = 0;
+            document.getElementById("livestreaming").style.width = 0;
+            document.getElementById("question").style.visibility = "visible";
+            document.getElementById("btn1").style.visibility = "visible";
+            document.getElementById("btn2").style.visibility = "visible";
+            document.getElementById("btn3").style.visibility = "visible";
+            document.getElementById("btn4").style.visibility = "visible";
+            document.getElementById("CountDownTimer").style.visibility = "visible";
+
+            setTimeout(function(){
+                $("#CountDownTimer").TimeCircles().rebuild();
+                $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
+                $('#livestreaming').width($(window).width())
+                $(".playland").hide();
+                global_client_timer = null;
+
+                if(!active_player && !non_active_player_msg)
+                {
+                    non_active_player_msg = true;
+                    alert("Gracias por participar pero elegiste la respuesta incorrecta, vuelve pronto para que seas tú el próximo ganador!")
+                }
+                
+            }, 7000);
+
+        });
+
         socket.on('end_game', function(msg){
+
+            // Show Question Land
+            $(".playland").show();
 
             console.log("end_game")
 
@@ -260,11 +363,74 @@ var app = {
             $('#btn3').css('background','#262626');
             $('#btn4').css('background','#262626');
 
-            setTimeout(function(){ 
+            if(msg.answer == "1")
+            {
+              $('#btn1').css('background','#4CAF50');
+            }
+            else if(msg.answer == "2")
+            {
+              $('#btn2').css('background','#4CAF50');
+            }
+            else if(msg.answer == "3")
+            {
+              $('#btn3').css('background','#4CAF50');
+            }
+            else if(msg.answer == "4")
+            {
+              $('#btn4').css('background','#4CAF50');
+            }
+
+            if(active_player && msg.answer != player_answer)
+            {
+                active_player = false;
+
+                if(player_answer == "1")
+                {
+                  $('#btn1').css('background','#FE3838');
+                }
+                else if(player_answer == "2")
+                {
+                  $('#btn2').css('background','#FE3838');
+                }
+                else if(player_answer == "3")
+                {
+                  $('#btn3').css('background','#FE3838');
+                }
+                else if(player_answer == "4")
+                {
+                  $('#btn4').css('background','#FE3838');
+                }
+            }
+            
+            console.log("end_game, checking flag active_player: " +active_player)
+            console.log(msg.answer)
+            console.log(player_answer)
+
+            document.getElementById("livestreaming").style.height = 0;
+            document.getElementById("livestreaming").style.width = 0;
+            document.getElementById("question").style.visibility = "visible";
+            document.getElementById("btn1").style.visibility = "visible";
+            document.getElementById("btn2").style.visibility = "visible";
+            document.getElementById("btn3").style.visibility = "visible";
+            document.getElementById("btn4").style.visibility = "visible";
+            document.getElementById("CountDownTimer").style.visibility = "visible";
+            
+            $("#CountDownTimer").TimeCircles().end();
+
+            $('#final_message').text(msg.final_message);
+
+            setTimeout(function(){
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
-                $(".playland").hide(); 
-            }, 3000);
+                $(".playland").hide();
+                global_client_timer = null;
+
+                if(!active_player && !non_active_player_msg)
+                {
+                    non_active_player_msg = true;
+                    alert("Gracias por participar pero elegiste la respuesta incorrecta, vuelve pronto para que seas tú el próximo ganador!")
+                }
+            }, 7000);
 
         });
 
@@ -279,14 +445,15 @@ var app = {
             $('#btn3').prop('disabled', true);
             $('#btn4').prop('disabled', true);
 
-            var client_epoch = 10 - (app.seconds_since_epoch() - msg.epoch)
+            var time_now = moment()
+            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
 
-            if(client_epoch<0)
+            if(client_timer<0 || isNaN(client_timer) )
             {
-              client_epoch = 0
+              client_timer = 0
             }
 
-            console.log(client_epoch)
+            console.log(client_timer)
 
             document.getElementById("question").style.visibility = "visible";
             document.getElementById("btn1").style.visibility = "visible";
@@ -294,9 +461,9 @@ var app = {
             document.getElementById("btn3").style.visibility = "visible";
             document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
-            document.getElementById("CountDownTimer").setAttribute("data-timer",client_epoch);
+            document.getElementById("CountDownTimer").setAttribute("data-timer",client_timer);
 
-            default_count_down_timer["total_duration"] = client_epoch;
+            default_count_down_timer["total_duration"] = client_timer;
 
             $("#CountDownTimer").TimeCircles(default_count_down_timer);
             $("#CountDownTimer").TimeCircles().restart();
@@ -307,6 +474,12 @@ var app = {
             $('#btn3').text(msg.option_3);
             $('#btn4').text(msg.option_4);
             $('#late').text(msg.sorry);
+
+            if(!active_player && !non_active_player_msg)
+            {
+                non_active_player_msg = true
+                alert(msg.sorry_message)
+            }
 
         });
 
