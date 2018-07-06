@@ -55,10 +55,30 @@ var app = {
         $('#btn3').prop('disabled', true);
         $('#btn4').prop('disabled', true);
 
-        $('#btn1').css('background','#262626');
-        $('#btn2').css('background','#262626');
-        $('#btn3').css('background','#262626');
-        $('#btn4').css('background','#262626');
+        if(player_answer == "1")
+        {
+            $('#btn2').css('background','#262626');
+            $('#btn3').css('background','#262626');
+            $('#btn4').css('background','#262626');
+        }
+        else if(player_answer == "2")
+        {
+            $('#btn1').css('background','#262626');
+            $('#btn3').css('background','#262626');
+            $('#btn4').css('background','#262626');
+        }
+        else if(player_answer == "3")
+        {
+            $('#btn1').css('background','#262626');
+            $('#btn2').css('background','#262626');
+            $('#btn4').css('background','#262626');
+        }
+        else if(player_answer == "4")
+        {
+            $('#btn1').css('background','#262626');
+            $('#btn2').css('background','#262626');
+            $('#btn3').css('background','#262626');
+        }
 
         var payload = {
           user : window.localStorage["username"], 
@@ -240,10 +260,30 @@ var app = {
             $('#btn3').prop('disabled', true);
             $('#btn4').prop('disabled', true);
 
-            $('#btn1').css('background','#262626');
-            $('#btn2').css('background','#262626');
-            $('#btn3').css('background','#262626');
-            $('#btn4').css('background','#262626');
+            if(player_answer == "1")
+            {
+                $('#btn2').css('background','#262626');
+                $('#btn3').css('background','#262626');
+                $('#btn4').css('background','#262626');
+            }
+            else if(player_answer == "2")
+            {
+                $('#btn1').css('background','#262626');
+                $('#btn3').css('background','#262626');
+                $('#btn4').css('background','#262626');
+            }
+            else if(player_answer == "3")
+            {
+                $('#btn1').css('background','#262626');
+                $('#btn2').css('background','#262626');
+                $('#btn4').css('background','#262626');
+            }
+            else if(player_answer == "4")
+            {
+                $('#btn1').css('background','#262626');
+                $('#btn2').css('background','#262626');
+                $('#btn3').css('background','#262626');
+            }
 
             console.log("Timeout, checking flag active_player: " +active_player)
             console.log(msg.answer)
@@ -329,10 +369,20 @@ var app = {
             document.getElementById("btn4").style.visibility = "visible";
             document.getElementById("CountDownTimer").style.visibility = "visible";
 
+            var players_answer_distribution = msg["answer_distribution"]
+            $('#answer1').text(" " +players_answer_distribution["1"]);
+            $('#answer2').text(" " +players_answer_distribution["2"]);
+            $('#answer3').text(" " +players_answer_distribution["3"]);
+            $('#answer4').text(" " +players_answer_distribution["4"]);
+
             setTimeout(function(){
                 $("#CountDownTimer").TimeCircles().rebuild();
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
+                $('#answer1').text("");
+                $('#answer2').text("");
+                $('#answer3').text("");
+                $('#answer4').text("");
                 $(".playland").hide();
                 global_client_timer = null;
 
@@ -416,12 +466,21 @@ var app = {
             document.getElementById("CountDownTimer").style.visibility = "visible";
             
             $("#CountDownTimer").TimeCircles().end();
-
             $('#final_message').text(msg.final_message);
+
+            var players_answer_distribution = msg["answer_distribution"]
+            $('#answer1').text(" " +players_answer_distribution["1"]);
+            $('#answer2').text(" " +players_answer_distribution["2"]);
+            $('#answer3').text(" " +players_answer_distribution["3"]);
+            $('#answer4').text(" " +players_answer_distribution["4"]);
 
             setTimeout(function(){
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
                 $('#livestreaming').width($(window).width())
+                $('#answer1').text("");
+                $('#answer2').text("");
+                $('#answer3').text("");
+                $('#answer4').text("");
                 $(".playland").hide();
                 global_client_timer = null;
 
