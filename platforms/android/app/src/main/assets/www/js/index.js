@@ -25,6 +25,8 @@ var youtube_player_width = 0;
 
 var global_client_timer = null;
 
+var socket = null;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -81,7 +83,7 @@ var app = {
         }
 
         var payload = {
-          user : window.localStorage["username"], 
+          player : window.localStorage["player"], 
           answer : player_answer,
         }
 
@@ -110,6 +112,20 @@ var app = {
         $(".register-form").show();
     },
 
+
+    signOff: function(){
+        console.log("Sign off");
+        socket.disconnect()
+
+        $(".views").hide();
+        $(".register-form").hide();
+        $(".playland").hide();
+
+        $(".form").show();
+        $(".login-form").show();
+        $(".login-page").show();
+    },
+
     toPlayLand: function(){
         $(".views").show();
         $(".login-page").hide();
@@ -134,10 +150,10 @@ var app = {
         }
 
         var username= $('#username').val();
-        console.log("Username: "+username)
-        window.localStorage["username"] = username;
-        var server_url = "http://trivias.descubrenear.com?username="+username
-        var socket = io(server_url);
+        console.log("Player: "+username)
+        window.localStorage["player"] = username;
+        var server_url = "http://trivias.descubrenear.com?player="+username
+        socket = io(server_url);
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
@@ -499,6 +515,7 @@ var app = {
             console.log(msg)
             active_player = false;
 
+            /*
             $('#btn1').prop('disabled', true);
             $('#btn2').prop('disabled', true);
             $('#btn3').prop('disabled', true);
@@ -533,21 +550,22 @@ var app = {
             $('#btn3').text(msg.option_3);
             $('#btn4').text(msg.option_4);
             $('#late').text(msg.sorry);
+            */
 
             if(!active_player && !non_active_player_msg)
             {
                 non_active_player_msg = true
-                alert(msg.sorry_message)
+
+                setTimeout(function(){
+                    alert(msg.sorry_message)
+                },1000)
             }
 
         });
 
         socket.on('active_players_count', function(msg){
-
             console.log("active_players_count")
-
-            $('#activeplayerscount').text(" " +msg.count);
-
+            $('#activeplayerscount').text(" " +msg);
         });
     }
 };

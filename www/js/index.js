@@ -25,6 +25,8 @@ var youtube_player_width = 0;
 
 var global_client_timer = null;
 
+var socket = null;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -81,7 +83,7 @@ var app = {
         }
 
         var payload = {
-          user : window.localStorage["username"], 
+          player : window.localStorage["player"], 
           answer : player_answer,
         }
 
@@ -110,6 +112,20 @@ var app = {
         $(".register-form").show();
     },
 
+
+    signOff: function(){
+        console.log("Sign off");
+        socket.disconnect()
+
+        $(".views").hide();
+        $(".register-form").hide();
+        $(".playland").hide();
+
+        $(".form").show();
+        $(".login-form").show();
+        $(".login-page").show();
+    },
+
     toPlayLand: function(){
         $(".views").show();
         $(".login-page").hide();
@@ -128,20 +144,21 @@ var app = {
                 Seconds: { color: "#8cc541", "text": "" }
             }, 
             count_past_zero: false,
-            total_duration : 10,
+            total_duration : 7,
             start: false,
             fg_width: 0.12
         }
 
         var username= $('#username').val();
-        console.log("Username: "+username)
-        window.localStorage["username"] = username;
-        var server_url = "http://trivias.descubrenear.com?username="+username
-        var socket = io(server_url);
+        console.log("Player: "+username)
+        window.localStorage["player"] = username;
+        var server_url = "http://trivias.descubrenear.com?player="+username
+        socket = io(server_url);
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
 
+        // On every question
         socket.on('contest', function(msg){
 
             // Show Question Land
@@ -174,7 +191,7 @@ var app = {
             }
 
             var time_now = moment()
-            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
+            var client_timer = 7 - ( time_now.diff(global_client_timer,'seconds') )
 
             if(client_timer<0)
             {
@@ -206,51 +223,7 @@ var app = {
             $('#btn4').text(msg.option_4);
         });
 
-      
-        socket.on('answer_already_submitted', function(msg){
-
-            console.log("answer_already_submitted")
-
-            if(active_player)
-            {
-              $('#btn1').prop('disabled', true);
-              $('#btn2').prop('disabled', true);
-              $('#btn3').prop('disabled', true); 
-              $('#btn4').prop('disabled', true);   
-            }
-
-            var time_now = moment()
-            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
-
-            if(client_timer<0)
-            {
-              client_timer = 0
-            }
-
-            console.log(global_client_timer)
-            console.log(client_timer)
-            console.log(msg)
-
-            document.getElementById("question").style.visibility = "visible";
-            document.getElementById("btn1").style.visibility = "visible";
-            document.getElementById("btn2").style.visibility = "visible";
-            document.getElementById("btn3").style.visibility = "visible";
-            document.getElementById("btn4").style.visibility = "visible";
-            document.getElementById("CountDownTimer").style.visibility = "visible";
-            document.getElementById("CountDownTimer").setAttribute("data-timer",client_timer);
-
-            default_count_down_timer["total_duration"] = client_timer;
-
-            $("#CountDownTimer").TimeCircles(default_count_down_timer);
-            $("#CountDownTimer").TimeCircles().restart();
-
-            $('#question').text(msg.question);
-            $('#btn1').text(msg.option_1);
-            $('#btn2').text(msg.option_2);
-            $('#btn3').text(msg.option_3);
-            $('#btn4').text(msg.option_4);
-        });
-
+        // Time is over, let's disable everything 
         socket.on('timeout', function(msg){
 
             console.log("TIMEOUT")
@@ -285,9 +258,9 @@ var app = {
                 $('#btn3').css('background','#262626');
             }
 
-            console.log("Timeout, checking flag active_player: " +active_player)
-            console.log(msg.answer)
-            console.log(player_answer)
+            //console.log("Timeout, checking flag active_player: " +active_player)
+            //console.log(msg.answer)
+            //console.log(player_answer)
 
             setTimeout(function(){
                 $("#CountDownTimer").TimeCircles().rebuild();
@@ -300,6 +273,7 @@ var app = {
         });
 
 
+        // Let's verify the answer of the question
         socket.on('verify_answer', function(msg){
 
             // Show Question Land
@@ -396,6 +370,7 @@ var app = {
 
         });
 
+        // We have a winner or tie, Game over
         socket.on('end_game', function(msg){
 
             // Show Question Land
@@ -493,61 +468,27 @@ var app = {
 
         });
 
+        // Sorry but you are late, Game already started
         socket.on('game_is_already_on', function(msg){
 
             console.log("game_is_already_on")
             console.log(msg)
             active_player = false;
 
-            $('#btn1').prop('disabled', true);
-            $('#btn2').prop('disabled', true);
-            $('#btn3').prop('disabled', true);
-            $('#btn4').prop('disabled', true);
-
-            var time_now = moment()
-            var client_timer = 10 - ( time_now.diff(global_client_timer,'seconds') )
-
-            if(client_timer<0 || isNaN(client_timer) )
-            {
-              client_timer = 0
-            }
-
-            console.log(client_timer)
-
-            document.getElementById("question").style.visibility = "visible";
-            document.getElementById("btn1").style.visibility = "visible";
-            document.getElementById("btn2").style.visibility = "visible";
-            document.getElementById("btn3").style.visibility = "visible";
-            document.getElementById("btn4").style.visibility = "visible";
-            document.getElementById("CountDownTimer").style.visibility = "visible";
-            document.getElementById("CountDownTimer").setAttribute("data-timer",client_timer);
-
-            default_count_down_timer["total_duration"] = client_timer;
-
-            $("#CountDownTimer").TimeCircles(default_count_down_timer);
-            $("#CountDownTimer").TimeCircles().restart();
-
-            $('#question').text(msg.question);
-            $('#btn1').text(msg.option_1);
-            $('#btn2').text(msg.option_2);
-            $('#btn3').text(msg.option_3);
-            $('#btn4').text(msg.option_4);
-            $('#late').text(msg.sorry);
-
             if(!active_player && !non_active_player_msg)
             {
                 non_active_player_msg = true
-                alert(msg.sorry_message)
-            }
 
+                setTimeout(function(){
+                    alert(msg.sorry_message)
+                },1000)
+            }
         });
 
+        // Update the number of online players (Playing + Watching)
         socket.on('active_players_count', function(msg){
-
             console.log("active_players_count")
-
-            $('#activeplayerscount').text(" " +msg.count);
-
+            $('#activeplayerscount').text(" " +msg);
         });
     }
 };
