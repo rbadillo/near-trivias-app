@@ -158,6 +158,21 @@ var app = {
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
 
+        socket.on('connect', function(){
+          console.log('Connected to App Server')
+          $.notify("Conectado al servidor de Trvias Near!", {className:"success", globalPosition: "top left", autoHideDelay: "2500"});
+        })
+
+        socket.on('disconnect', function(){
+          console.log('Disconnected from App Server')
+          $.notify("Desconectado del servidor de Trvias Near!", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+        })
+
+        socket.on('reconnecting', function(attemptNumber){
+          console.log('Reconnecting to App Server - Attempt: ' +attemptNumber)
+          $.notify("Reconectando al servidor de Trvias Near ...", {className:"info", globalPosition: "top left", autoHideDelay: "2500"});
+        });
+
         // On every question
         socket.on('contest', function(msg){
 

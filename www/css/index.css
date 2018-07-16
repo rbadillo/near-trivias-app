@@ -96,7 +96,7 @@ body {
   background: linear-gradient(to left, #76b852, #8DC26F);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
+  -moz-osx-font-smoothing: grayscale;     
 }
 .active-players {
   font-family: "Roboto", sans-serif;
@@ -141,5 +141,6 @@ body {
   font-size: 14px;
 }
 .framework7-root{
-  background: #76b852; 
+  background: #76b852;
 }
+
