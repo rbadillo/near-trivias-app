@@ -126,6 +126,33 @@ var app = {
         $(".login-page").show();
     },
 
+    login: function(){
+        console.log("Login");
+
+        var payload = {
+          email : $('#username').val(), 
+          password : sha256($('#password').val())
+        }
+
+        $.ajax({
+              type: "POST",
+              url: "http://register-trivias.descubrenear.com/login",
+              data: JSON.stringify(payload),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(data){
+                  console.log("success");
+                  app.toPlayLand();
+              },
+              error: function(err) {
+                  console.log("failure");
+                  console.log(err);
+              }
+        });
+
+
+    },
+
     toPlayLand: function(){
         $(".views").show();
         $(".login-page").hide();
