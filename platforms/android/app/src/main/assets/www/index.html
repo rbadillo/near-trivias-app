@@ -36,31 +36,28 @@
 		      <input type="text" placeholder="Correo electrónico"/>
 		      <div id="country"> País: 
 			      <select>
-			      	<center>
+			      	<option value="" disabled selected>Selecciona tu país</option>
 			      	<option value="Mexico">Mexico</option>
 	  			  	<option value="USA">USA</option>
-	  			  	</center>
 			      </select>
 		      </div>
 		      <div id="country"> Estado: 
 			      <select>
-			      	<center>
+			      	<option value="" disabled selected>Selecciona tu estado</option>
 			      	<option value="Tamaulipas">Tamaulipas</option>
 	  			  	<option value="Nuevo León">Nuevo León</option>
-	  			  	</center>
 			      </select>
 		      </div>
-		      <div id="country"> Ciudad: 
+		      <div id="country"> Ciudad:
 			      <select>
-			      	<center>
+			      	<option value="" disabled selected>Selecciona tu ciudad</option>
 			      	<option value="Matamoros">Matamoros</option>
 	  			  	<option value="Monterrey">Monterrey</option>
-	  			  	</center>
 			      </select>
 		      </div>
-		      <input type="password" placeholder="Contraseña"/>
-		      <input type="password" placeholder="Confirma contraseña"/>
-		      <button type="button">Crear cuenta</button>
+		      <input type="password" id=newpassword1 placeholder="Contraseña"/>
+		      <input type="password" id=newpassword2 placeholder="Confirma contraseña"/>
+		      <button type="button" onClick="app.registerPlayer()">Crear cuenta</button>
 		      <p class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></p>
 		    </form>
 		    <form class="login-form">

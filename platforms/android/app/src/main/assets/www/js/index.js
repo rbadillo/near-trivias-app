@@ -141,15 +141,43 @@ var app = {
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               success: function(data){
-                  console.log("success");
+                  console.log("Login Successful")
+                  console.log(data)
+                  console.log(data.msg)
+                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "3000"});
                   app.toPlayLand();
               },
-              error: function(err) {
-                  console.log("failure");
-                  console.log(err);
+              error: function(data) {
+                  console.log("Login Failed");
+                  console.log(data.responseJSON.msg);
+                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
               }
         });
+    },
 
+    registerPlayer: function(){
+
+        console.log("Register Player")
+
+        var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+        console.log($('#newpassword1').val() )
+
+        if( $('#newpassword1').val() == $('#newpassword2').val() )
+        {
+            if(mediumRegex.test($('#newpassword1').val()))
+            {
+                $.notify("Tu cuenta ha sido creada exitosamente.\nPor favor confirma tu cuenta\ndando click en el link enviado\na tu correo electrónico", {className:"success", globalPosition: "top left", autoHideDelay: "3000"});
+            }
+            else
+            {
+                $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+            }
+        }
+        else
+        {
+            $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+        }
 
     },
 
