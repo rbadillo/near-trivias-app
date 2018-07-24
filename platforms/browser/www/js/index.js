@@ -110,6 +110,32 @@ var app = {
     toRegisterForm: function(){
         $(".login-form").hide();
         $(".register-form").show();
+
+        $.ajax({
+          type: "GET",
+          url: "http://register-trivias.descubrenear.com/countries",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data){
+
+            console.log("GET Countries Successful")
+            console.log(data)
+
+            var country_select = document.getElementById("country");
+
+            for(var i=0;i<data.length;i++)
+            {
+                var option = document.createElement("option");
+                option.text = data[i].country_name;
+                country_select.add(option);
+            }
+          },
+          error: function(data) {
+              console.log("GET Countries Failed")
+              console.log(data.responseJSON.msg);
+              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+          }
+        });
     },
 
 
@@ -159,26 +185,153 @@ var app = {
 
         console.log("Register Player")
 
-        var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-
-        console.log($('#newpassword1').val() )
-
-        if( $('#newpassword1').val() == $('#newpassword2').val() )
+        // Verify that all fields have information
+        if( $('#name').val().trim().length &&
+            $('#lastname').val().trim().length &&
+            $('#age').val().trim().length &&
+            $('#email').val().trim().length &&
+            $('#country').val() != null &&
+            $('#state').val() !=null &&
+            $('#city').val() !=null &&
+            $('#newpassword1').val().trim().length &&
+            $('#newpassword2').val().trim().length)
         {
-            if(mediumRegex.test($('#newpassword1').val()))
+            var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
+            if( $('#newpassword1').val() == $('#newpassword2').val() )
             {
-                $.notify("Tu cuenta ha sido creada exitosamente.\nPor favor confirma tu cuenta\ndando click en el link enviado\na tu correo electrónico", {className:"success", globalPosition: "top left", autoHideDelay: "3000"});
+                if(mediumRegex.test($('#newpassword1').val().trim()))
+                {
+                  var payload = {
+                    name : $('#name').val(),
+                    lastname : $('#lastname').val(),
+                    age : $('#age').val(),
+                    email : $('#email').val(),
+                    country : $('#country').val(),
+                    state : $('#state').val(),
+                    city : $('#city').val(), 
+                    password : sha256($('#newpassword1').val().trim())
+                  }
+
+                  $.ajax({
+                        type: "POST",
+                        url: "http://register-trivias.descubrenear.com/register",
+                        data: JSON.stringify(payload),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){
+                            console.log("Register Successful")
+                            console.log(data)
+                            console.log(data.msg)
+                            $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "4000"});
+
+                            setTimeout(function(){
+                              app.toLoginForm()
+                            }, 5000);
+
+                        },
+                        error: function(data) {
+                            console.log("Register Failed");
+                            console.log(data.responseJSON.msg);
+                            $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                        }
+                  });
+                }
+                else
+                {
+                    $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                }
             }
             else
             {
-                $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
             }
         }
         else
         {
-            $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+            $.notify("Por favor llena toda la información de registro", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
         }
 
+    },
+
+    onCountryChange: function(){
+
+        console.log("API to Get States")
+
+        var country = $('#country').val()
+
+        $.ajax({
+          type: "GET",
+          url: "http://register-trivias.descubrenear.com/states?country="+country,
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data){
+
+            console.log("GET States Successful")
+            console.log(data)
+
+            var state_select = document.getElementById("state");
+
+            $('#state').empty().append('<option value="" disabled selected>Selecciona tu estado</option>');
+            $('#city').empty().append('<option value="" disabled selected>Selecciona tu ciudad</option>');
+
+            for(var i=0;i<data.length;i++)
+            {
+                var option = document.createElement("option");
+                option.text = data[i].state_name;
+                state_select.add(option);
+            }
+
+          },
+          error: function(data) {
+              console.log("GET States Failed")
+              console.log(data.responseJSON.msg);
+              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+          }
+        });
+    },
+
+    onStateChange: function(){
+
+        if($('#country').val() == null)
+        {
+            $.notify("Por favor elige un país antes de seleccionar estado", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+        }
+        else
+        {
+            console.log("API to Get Cities")
+
+            var country = $('#country').val()
+            var state = $('#state').val()
+
+            $.ajax({
+              type: "GET",
+              url: "http://register-trivias.descubrenear.com/cities?country="+country+"&state="+state,
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(data){
+
+                console.log("GET Cities Successful")
+                console.log(data)
+
+                var city_select = document.getElementById("city");
+
+                $('#city').empty().append('<option value="" disabled selected>Selecciona tu ciudad</option>');
+
+                for(var i=0;i<data.length;i++)
+                {
+                    var option = document.createElement("option");
+                    option.text = data[i].city_name;
+                    city_select.add(option);
+                }
+              },
+              error: function(data) {
+                  console.log("GET Cities Failed")
+                  console.log(data.responseJSON.msg);
+                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+            });
+        }
     },
 
     toPlayLand: function(){

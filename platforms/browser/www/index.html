@@ -30,29 +30,23 @@
 		  <div class="form">
 		  	<img src="img/near.png" width="150" height="150"/>
 		    <form class="register-form">
-		      <input type="text" placeholder="Nombre"/>
-		      <input type="text" placeholder="Apellido"/>
-		      <input type="number" placeholder="Edad"/>
-		      <input type="text" placeholder="Correo electrónico"/>
-		      <div id="country"> País: 
-			      <select>
+		      <input type="text" id=name placeholder="Nombre"/>
+		      <input type="text" id=lastname placeholder="Apellido"/>
+		      <input type="number" id=age placeholder="Edad"/>
+		      <input type="text" id=email placeholder="Correo electrónico"/>
+		      <div> País: 
+			      <select id="country" onChange="app.onCountryChange()">
 			      	<option value="" disabled selected>Selecciona tu país</option>
-			      	<option value="Mexico">Mexico</option>
-	  			  	<option value="USA">USA</option>
 			      </select>
 		      </div>
-		      <div id="country"> Estado: 
-			      <select>
+		      <div> Estado: 
+			      <select id="state" onChange="app.onStateChange()">
 			      	<option value="" disabled selected>Selecciona tu estado</option>
-			      	<option value="Tamaulipas">Tamaulipas</option>
-	  			  	<option value="Nuevo León">Nuevo León</option>
 			      </select>
 		      </div>
-		      <div id="country"> Ciudad:
-			      <select>
+		      <div> Ciudad:
+			      <select id="city">
 			      	<option value="" disabled selected>Selecciona tu ciudad</option>
-			      	<option value="Matamoros">Matamoros</option>
-	  			  	<option value="Monterrey">Monterrey</option>
 			      </select>
 		      </div>
 		      <input type="password" id=newpassword1 placeholder="Contraseña"/>
@@ -61,7 +55,7 @@
 		      <p class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></p>
 		    </form>
 		    <form class="login-form">
-		      <input type="text" id="username" placeholder="Usuario"/>
+		      <input type="text" id="username" placeholder="Email"/>
 		      <input type="password" id="password" placeholder="Contraseña"/>
 		      <button type="button" onClick="app.login()">Iniciar sesión</button>
 		      <p class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></p>
