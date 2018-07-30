@@ -170,13 +170,13 @@ var app = {
                   console.log("Login Successful")
                   console.log(data)
                   console.log(data.msg)
-                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "3000"});
+                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
                   app.toPlayLand();
               },
               error: function(data) {
                   console.log("Login Failed");
                   console.log(data.responseJSON.msg);
-                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
               }
         });
     },
@@ -196,56 +196,64 @@ var app = {
             $('#newpassword1').val().trim().length &&
             $('#newpassword2').val().trim().length)
         {
-            var mediumRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+            var passwordRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+            var emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 
-            if( $('#newpassword1').val() == $('#newpassword2').val() )
+            if(emailRegex.test($('#email').val().trim()))
             {
-                if(mediumRegex.test($('#newpassword1').val().trim()))
-                {
-                  var payload = {
-                    name : $('#name').val(),
-                    lastname : $('#lastname').val(),
-                    age : $('#age').val(),
-                    email : $('#email').val(),
-                    country : $('#country').val(),
-                    state : $('#state').val(),
-                    city : $('#city').val(), 
-                    password : sha256($('#newpassword1').val().trim())
+              if( $('#newpassword1').val() == $('#newpassword2').val() )
+              {
+                  if(passwordRegex.test($('#newpassword1').val().trim()))
+                  {
+                    var payload = {
+                      name : $('#name').val(),
+                      lastname : $('#lastname').val(),
+                      age : $('#age').val(),
+                      email : $('#email').val(),
+                      country : $('#country').val(),
+                      state : $('#state').val(),
+                      city : $('#city').val(), 
+                      password : sha256($('#newpassword1').val().trim())
+                    }
+
+                    $.ajax({
+                          type: "POST",
+                          url: "http://register-trivias.descubrenear.com/register",
+                          data: JSON.stringify(payload),
+                          contentType: "application/json; charset=utf-8",
+                          dataType: "json",
+                          success: function(data){
+                              console.log("Register Successful")
+                              console.log(data)
+                              console.log(data.msg)
+                              $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "10000"});
+
+                              setTimeout(function(){
+                                app.toLoginForm()
+                              }, 11000);
+
+                          },
+                          error: function(data) {
+                              console.log("Register Failed");
+                              console.log(data.responseJSON.msg);
+                              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                          }
+                    });
                   }
-
-                  $.ajax({
-                        type: "POST",
-                        url: "http://register-trivias.descubrenear.com/register",
-                        data: JSON.stringify(payload),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function(data){
-                            console.log("Register Successful")
-                            console.log(data)
-                            console.log(data.msg)
-                            $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "4000"});
-
-                            setTimeout(function(){
-                              app.toLoginForm()
-                            }, 5000);
-
-                        },
-                        error: function(data) {
-                            console.log("Register Failed");
-                            console.log(data.responseJSON.msg);
-                            $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-                        }
-                  });
-                }
-                else
-                {
-                    $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                }
-            }
-            else
-            {
-                $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
-            }
+                  else
+                  {
+                      $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+              }
+              else
+              {
+                  $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+              }
+          }
+          else
+          {
+              $.notify("Porfavor introduce un correo electrónico válido", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+          }
         }
         else
         {
@@ -360,7 +368,8 @@ var app = {
         var username= $('#username').val();
         console.log("Player: "+username)
         window.localStorage["player"] = username;
-        var server_url = "http://trivias.descubrenear.com?player="+username
+        var tmp_username_socket_io = username.split("@")[0]
+        var server_url = "http://trivias.descubrenear.com?player="+tmp_username_socket_io
         socket = io(server_url);
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
