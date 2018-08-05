@@ -55,6 +55,9 @@
 .form .register-form {
   display: none;
 }
+.form .forgot-password-form {
+  display: none;
+}
 .container {
   position: relative;
   z-index: 1;

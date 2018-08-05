@@ -59,6 +59,12 @@
 		      <input type="password" id="password" placeholder="Contraseña"/>
 		      <button type="button" onClick="app.login()">Iniciar sesión</button>
 		      <p class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></p>
+		      <p class="messageLogin" onClick="app.toForgotPasswordForm()">¿Olvidaste tu contraseña? <a href="#">Da click aquí</a></p>
+		    </form>
+		    <form class="forgot-password-form">
+		      <input type="email" id=emailfgpass placeholder="Correo electrónico"/>
+		      <button type="button" onClick="app.forgotPasswordPlayer()">Recuperar Cuenta</button>
+		      <p class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></p>
 		    </form>
 		  </div>
 		</div>

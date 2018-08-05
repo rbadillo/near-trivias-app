@@ -96,19 +96,34 @@ var app = {
               success: function(data){
                   console.log(data.msg);
               },
-              failure: function(errMsg) {
-                  console.log(errMsg.msg);
+              failure: function(data) {
+                //console.log(data.responseJSON.msg);
+                if(data.responseJSON === undefined)
+                {
+                  var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                  $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  $('#btn1').prop('disabled', false);
+                  $('#btn2').prop('disabled', false);
+                  $('#btn3').prop('disabled', false);
+                  $('#btn4').prop('disabled', false);
+                }
+                else
+                {
+                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                }
               }
         });
     },
 
     toLoginForm: function(){
         $(".register-form").hide();
+        $(".forgot-password-form").hide();
         $(".login-form").show();
     },
 
     toRegisterForm: function(){
         $(".login-form").hide();
+        $(".forgot-password-form").hide();
         $(".register-form").show();
 
         $.ajax({
@@ -132,11 +147,27 @@ var app = {
           },
           error: function(data) {
               console.log("GET Countries Failed")
-              console.log(data.responseJSON.msg);
-              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              //console.log(data.responseJSON.msg);
+              if(data.responseJSON === undefined)
+              {
+                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else
+              {
+                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
           }
         });
     },
+
+    toForgotPasswordForm: function(){
+        $(".login-form").hide();
+        $(".register-form").hide();
+        $(".forgot-password-form").show();
+
+    },
+
 
 
     signOff: function(){
@@ -175,8 +206,51 @@ var app = {
               },
               error: function(data) {
                   console.log("Login Failed");
-                  console.log(data.responseJSON.msg);
-                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                  //console.log(data.responseJSON.msg);
+                  if(data.responseJSON === undefined)
+                  {
+                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+                  else
+                  {
+                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                  }
+              }
+        });
+    },
+
+    forgotPasswordPlayer: function(){
+        console.log("forgotPasswordPlayer");
+
+        var payload = {
+          email : $('#emailfgpass').val()
+        }
+
+        $.ajax({
+              type: "POST",
+              url: "http://register-trivias.descubrenear.com/forgotpassword",
+              data: JSON.stringify(payload),
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(data){
+                  console.log("Forgot Password Successful")
+                  console.log(data)
+                  console.log(data.msg)
+                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "9000"});
+              },
+              error: function(data) {
+                  console.log("Forgot Password Failed");
+                  //console.log(data.responseJSON.msg);
+                  if(data.responseJSON === undefined)
+                  {
+                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+                  else
+                  {
+                      $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "9000"});
+                  }
               }
         });
     },
@@ -235,8 +309,16 @@ var app = {
                           },
                           error: function(data) {
                               console.log("Register Failed");
-                              console.log(data.responseJSON.msg);
-                              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                              //console.log(data.responseJSON.msg);
+                              if(data.responseJSON === undefined)
+                              {
+                                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                              }
+                              else
+                              {
+                                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                              }
                           }
                     });
                   }
@@ -293,8 +375,16 @@ var app = {
           },
           error: function(data) {
               console.log("GET States Failed")
-              console.log(data.responseJSON.msg);
-              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              //console.log(data.responseJSON.msg);
+              if(data.responseJSON === undefined)
+              {
+                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else
+              {
+                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
           }
         });
     },
@@ -335,8 +425,16 @@ var app = {
               },
               error: function(data) {
                   console.log("GET Cities Failed")
-                  console.log(data.responseJSON.msg);
-                  $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  //console.log(data.responseJSON.msg);
+                  if(data.responseJSON === undefined)
+                  {
+                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+                  else
+                  {
+                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
               }
             });
         }
@@ -347,6 +445,7 @@ var app = {
         $(".login-page").hide();
         $(".login-form").hide();
         $(".register-form").hide();
+        $(".forgot-password-form").hide();
         $(".form").hide();
 
         var active_player = true;
