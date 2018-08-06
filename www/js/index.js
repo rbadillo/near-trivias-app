@@ -185,7 +185,7 @@ var app = {
 
     signOff: function(){
         console.log("Sign off");
-        socket = socket.close()
+        socket.close()
 
         $(".views").hide();
         $(".register-form").hide();
@@ -517,7 +517,8 @@ var app = {
         window.localStorage["player"] = username;
         var tmp_username_socket_io = username.split("@")[0]
         var server_url = "http://trivias.descubrenear.com?player="+tmp_username_socket_io
-        socket = io(server_url)
+        socket = io(server_url,{'forceNew':true })
+
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
