@@ -104,7 +104,7 @@ var app = {
                 $('#btn2').prop('disabled', false);
                 $('#btn3').prop('disabled', false);
                 $('#btn4').prop('disabled', false);
-                
+
                 if(data.status == 0)
                 {
                   var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
@@ -185,7 +185,7 @@ var app = {
 
     signOff: function(){
         console.log("Sign off");
-        socket.disconnect()
+        socket.close()
 
         $(".views").hide();
         $(".register-form").hide();
@@ -517,7 +517,7 @@ var app = {
         window.localStorage["player"] = username;
         var tmp_username_socket_io = username.split("@")[0]
         var server_url = "http://trivias.descubrenear.com?player="+tmp_username_socket_io
-        socket = io(server_url).connect();
+        socket = io(server_url)
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
