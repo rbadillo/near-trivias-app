@@ -185,7 +185,7 @@ var app = {
 
     signOff: function(){
         console.log("Sign off");
-        socket.close()
+        socket = socket.close()
 
         $(".views").hide();
         $(".register-form").hide();
