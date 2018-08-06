@@ -97,15 +97,23 @@ var app = {
                   console.log(data.msg);
               },
               failure: function(data) {
-                //console.log(data.responseJSON.msg);
-                if(data.responseJSON === undefined)
+
+                console.log("HTTP Code: " +data.status);
+                // Reactivating buttons
+                $('#btn1').prop('disabled', false);
+                $('#btn2').prop('disabled', false);
+                $('#btn3').prop('disabled', false);
+                $('#btn4').prop('disabled', false);
+                
+                if(data.status == 0)
                 {
-                  var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                  var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
                   $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                  $('#btn1').prop('disabled', false);
-                  $('#btn2').prop('disabled', false);
-                  $('#btn3').prop('disabled', false);
-                  $('#btn4').prop('disabled', false);
+                }
+                else if(data.status == 503)
+                {
+                  var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                  $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
                 }
                 else
                 {
@@ -147,10 +155,15 @@ var app = {
           },
           error: function(data) {
               console.log("GET Countries Failed")
-              //console.log(data.responseJSON.msg);
-              if(data.responseJSON === undefined)
+              console.log("HTTP Code: " +data.status);
+              if(data.status == 0)
               {
-                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else if(data.status == 503)
+              {
+                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
                 $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
               }
               else
@@ -191,33 +204,48 @@ var app = {
           password : sha256($('#password').val())
         }
 
-        $.ajax({
-              type: "POST",
-              url: "http://register-trivias.descubrenear.com/login",
-              data: JSON.stringify(payload),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function(data){
-                  console.log("Login Successful")
-                  console.log(data)
-                  console.log(data.msg)
-                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
-                  app.toPlayLand();
-              },
-              error: function(data) {
-                  console.log("Login Failed");
-                  //console.log(data.responseJSON.msg);
-                  if(data.responseJSON === undefined)
-                  {
-                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
-                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                  }
-                  else
-                  {
-                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-                  }
-              }
-        });
+        if($('#username').val().length &&
+           $('#password').val().length)
+        {
+
+          $.ajax({
+                type: "POST",
+                url: "http://register-trivias.descubrenear.com/login",
+                data: JSON.stringify(payload),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    console.log("Login Successful")
+                    console.log(data)
+                    console.log(data.msg)
+                    $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
+                    app.toPlayLand();
+                },
+                error: function(data) {
+                    console.log("Login Failed");
+                    console.log("HTTP Code: " +data.status);
+                    if(data.status == 0)
+                    {
+                      var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                    }
+                    else if(data.status == 503)
+                    {
+                      var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                    }
+                    else
+                    {
+                      $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                    }
+                }
+          });
+        }
+        else
+        {
+          var msg = "Por favor llena ambos campos para poder\niniciar sesión."
+          $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+        }
     },
 
     forgotPasswordPlayer: function(){
@@ -241,10 +269,15 @@ var app = {
               },
               error: function(data) {
                   console.log("Forgot Password Failed");
-                  //console.log(data.responseJSON.msg);
-                  if(data.responseJSON === undefined)
+                  console.log("HTTP Code: " +data.status);
+                  if(data.status == 0)
                   {
-                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                    var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+                  else if(data.status == 503)
+                  {
+                    var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
                     $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
                   }
                   else
@@ -309,10 +342,15 @@ var app = {
                           },
                           error: function(data) {
                               console.log("Register Failed");
-                              //console.log(data.responseJSON.msg);
-                              if(data.responseJSON === undefined)
+                              console.log("HTTP Code: " +data.status);
+                              if(data.status == 0)
                               {
-                                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                              }
+                              else if(data.status == 503)
+                              {
+                                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
                                 $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
                               }
                               else
@@ -375,10 +413,15 @@ var app = {
           },
           error: function(data) {
               console.log("GET States Failed")
-              //console.log(data.responseJSON.msg);
-              if(data.responseJSON === undefined)
+              console.log("HTTP Code: " +data.status);
+              if(data.status == 0)
               {
-                var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else if(data.status == 503)
+              {
+                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
                 $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
               }
               else
@@ -425,10 +468,15 @@ var app = {
               },
               error: function(data) {
                   console.log("GET Cities Failed")
-                  //console.log(data.responseJSON.msg);
-                  if(data.responseJSON === undefined)
+                  console.log("HTTP Code: " +data.status);
+                  if(data.status == 0)
                   {
-                    var msg = "Hubo un error con tu conexión a internet, por favor intenta de nuevo."
+                    var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                  }
+                  else if(data.status == 503)
+                  {
+                    var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
                     $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
                   }
                   else
@@ -469,7 +517,7 @@ var app = {
         window.localStorage["player"] = username;
         var tmp_username_socket_io = username.split("@")[0]
         var server_url = "http://trivias.descubrenear.com?player="+tmp_username_socket_io
-        socket = io(server_url);
+        socket = io(server_url).connect();
 
         $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
         $('#livestreaming').width($(window).width())
