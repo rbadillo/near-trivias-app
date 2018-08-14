@@ -136,6 +136,7 @@ var app = {
         $(".next-game").hide();
         $(".login-form").hide();
         $(".forgot-password-form").hide();
+        $(".leaderboard-form").hide();
         $("#logo-register-form").show();
         $(".register-form").show();
 
