@@ -1,8 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+.next-game {
+  width: 360px;
+  padding: 2% 0 0;
+  margin: auto;
+}
 .login-page {
   width: 360px;
-  padding: 8% 0 0;
+  padding: 2% 0 0;
   margin: auto;
 }
 .form {
@@ -10,8 +15,8 @@
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
-  margin: 0 auto 100px;
-  padding: 45px;
+  margin: 0 auto 10px;
+  padding: 15px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
@@ -24,7 +29,7 @@
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 13px;
 }
 .form button {
   font-family: "Roboto", sans-serif;
@@ -35,7 +40,7 @@
   border: 0;
   padding: 15px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 13px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
@@ -46,7 +51,7 @@
 .form .messageLogin {
   margin: 15px 0 0;
   color: #b3b3b3;
-  font-size: 12px;
+  font-size: 13px;
 }
 .form .messageLogin a {
   color: #4CAF50;
@@ -56,6 +61,9 @@
   display: none;
 }
 .form .forgot-password-form {
+  display: none;
+}
+.form .leaderboard-form {
   display: none;
 }
 .container {
@@ -141,7 +149,7 @@ body {
   width: 100%;
   border: 0;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 13px;
 }
 .framework7-root{
   background: #76b852;
@@ -156,7 +164,105 @@ body {
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
   text-align-last: center;
 }
+
+.leaderboard-form{
+  width: 100%;
+  padding: 2% 0 0;
+  margin: auto;
+}
+
+/*** Table Styles **/
+
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color: white;
+  background:#4CAF50;
+  border-bottom:1px solid black;
+  border-right: 1px solid black;
+  font-size:13px;
+  font-weight: 100;
+  padding:5px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:#666B85;
+  font-size:13px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+  
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  background:#FFFFFF;
+  padding:5px;
+  text-align:center;
+  vertical-align:center;
+  font-weight:100;
+  font-size:13px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+td.text-center {
+  text-align: center;
+}
+

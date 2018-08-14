@@ -124,14 +124,19 @@ var app = {
     },
 
     toLoginForm: function(){
+        $("#logo-register-form").hide();
         $(".register-form").hide();
         $(".forgot-password-form").hide();
+        $(".leaderboard-form").hide();
+        $(".next-game").show();
         $(".login-form").show();
     },
 
     toRegisterForm: function(){
+        $(".next-game").hide();
         $(".login-form").hide();
         $(".forgot-password-form").hide();
+        $("#logo-register-form").show();
         $(".register-form").show();
 
         $.ajax({
@@ -177,7 +182,17 @@ var app = {
     toForgotPasswordForm: function(){
         $(".login-form").hide();
         $(".register-form").hide();
+        $(".leaderboard-form").hide();
         $(".forgot-password-form").show();
+
+    },
+
+    toLeaderBoard: function(){
+        $(".login-form").hide();
+        $(".register-form").hide();
+        $(".forgot-password-form").hide();
+        $(".leaderboard-form").show();
+
 
     },
 
@@ -295,6 +310,7 @@ var app = {
         // Verify that all fields have information
         if( $('#name').val().trim().length &&
             $('#lastname').val().trim().length &&
+            $('#nickname').val().trim().length &&
             $('#age').val().trim().length &&
             $('#email').val().trim().length &&
             $('#country').val() != null &&
@@ -315,6 +331,7 @@ var app = {
                     var payload = {
                       name : $('#name').val(),
                       lastname : $('#lastname').val(),
+                      nickname: $('#nickname').val().trim(),
                       age : $('#age').val(),
                       email : $('#email').val(),
                       country : $('#country').val(),

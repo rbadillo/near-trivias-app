@@ -26,12 +26,20 @@
 	    <script type="text/javascript">
 	        app.initialize();
 	    </script>
+	    <div class="next-game">
+	    	<div class="form">
+	    		<img src="img/near.png" width="85" height="85"/>
+	    		<b><div id='next_game_message'>Bienvenido a Trivias Near.<br>El siguiente juego será el Jueves 16 de Agosto, 2018 a las 8PM CST.</div></b>
+	    	</div>
+	    </div>
 	    <div class="login-page">
 		  <div class="form">
-		  	<img src="img/near.png" width="150" height="150"/>
+		    
 		    <form class="register-form">
+		      <img id="logo-register-form" style='display: none' src="img/near.png" width="85" height="85"/>	
 		      <input type="text" id=name placeholder="Nombre"/>
 		      <input type="text" id=lastname placeholder="Apellido"/>
+		      <input type="text" id=nickname placeholder="Nickname"/>
 		      <input type="number" id=age placeholder="Edad"/>
 		      <input type="email" id=email placeholder="Correo electrónico"/>
 		      <div> País: 
@@ -52,22 +60,70 @@
 		      <input type="password" id=newpassword1 placeholder="Contraseña"/>
 		      <input type="password" id=newpassword2 placeholder="Confirma contraseña"/>
 		      <button type="button" onClick="app.registerPlayer()">Crear cuenta</button>
-		      <p class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></p>
+		      <div class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></div>
 		    </form>
+
 		    <form class="login-form">
 		      <input type="email" id="username" placeholder="Email"/>
 		      <input type="password" id="password" placeholder="Contraseña"/>
 		      <button type="button" onClick="app.login()">Iniciar sesión</button>
-		      <p class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></p>
-		      <p class="messageLogin" onClick="app.toForgotPasswordForm()">¿Olvidaste tu contraseña? <a href="#">Da click aquí</a></p>
+		      <div class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></div>
+		      <div class="messageLogin" onClick="app.toForgotPasswordForm()">¿Olvidaste tu contraseña? <a href="#">Da click aquí</a></div>
+		      <div class="messageLogin" onClick="app.toLeaderBoard()">¿Quieres conocer la lista de ganadores? <a href="#">Da click aquí</a></div>
 		    </form>
+
 		    <form class="forgot-password-form">
 		      <input type="email" id=emailfgpass placeholder="Correo electrónico"/>
 		      <button type="button" onClick="app.forgotPasswordPlayer()">Recuperar Cuenta</button>
-		      <p class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></p>
+		      <div class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></div>
 		    </form>
+
+		    <form class="leaderboard-form">
+		    	<table class="table-fill">
+				<thead>
+					<tr>
+					<th class="text-center">#</th>
+					<th class="text-center">Nickname</th>
+					<th class="text-center">Fecha</th>
+					<th class="text-center">Premio</th>
+					</tr>
+				</thead>
+				<tbody class="table-hover">
+					<tr>
+					<td class="text-center">1</td>
+					<td class="text-center">carloz</td>
+					<td class="text-center">16/Agosto/2018</td>
+					<td class="text-center">$ 50,000.00</td>
+					</tr>
+					<tr>
+					<td class="text-center">2</td>
+					<td class="text-center">b3t0</td>
+					<td class="text-center">26/Agosto/2018</td>
+					<td class="text-center">Viaje a Cancún</td>
+					</tr>
+					<tr>
+					<td class="text-center">3</td>
+					<td class="text-center">carloz</td>
+					<td class="text-center">16/Agosto/2018</td>
+					<td class="text-center">$ 50,000.00</td>
+					</tr>
+					<tr>
+					<td class="text-center">4</td>
+					<td class="text-center">b3t0</td>
+					<td class="text-center">26/Agosto/2018</td>
+					<td class="text-center">Viaje a Cancún</td>
+					</tr>
+				</tbody>
+				</table>
+
+				<div class="messageLogin" onClick="app.toLoginForm()">¿Ya estas registrado? <a href="#">Da click aquí</a></div>
+
+			</form>
+
 		  </div>
 		</div>
+
+
 	    <script type="text/javascript">
 
 	    	function onYouTubeIframeAPIReady() {
