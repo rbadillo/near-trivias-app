@@ -27,6 +27,12 @@ var global_client_timer = null;
 
 var socket = null;
 
+var global_streaming_id = null;
+
+// Youtube Player
+var streaming_player = null;
+var streaming_stop_sign_off = false;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -46,6 +52,48 @@ var app = {
     onDeviceReady: function() {
         // Now safe to use device APIs
         console.log("DEVICE READY")
+        app.getNextGameDetails(function(){
+          console.log("getNextGameDetails callback")
+        });
+    },
+
+    getNextGameDetails: function(callback){
+
+        $.ajax({
+          type: "GET",
+          url: "http://register-trivias.descubrenear.com/nextgame",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data){
+
+            console.log("GET nextgame Successful")
+            console.log(data)
+
+            $('#next_game_message').html("Fecha: " +data[0].prize_date +"<br> Premio: " +data[0].prize_description);
+            global_streaming_id = data[0].streaming_id
+            return callback()
+            
+          },
+          error: function(data) {
+              console.log("GET nextgame Failed")
+              console.log("HTTP Code: " +data.status);
+              if(data.status == 0)
+              {
+                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else if(data.status == 503)
+              {
+                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else
+              {
+                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              return callback()
+          }
+        });
     },
 
     submitAnswer: function(button_clicked){
@@ -130,6 +178,9 @@ var app = {
         $(".leaderboard-form").hide();
         $(".next-game").show();
         $(".login-form").show();
+
+        // Empty Leaderboard Table
+        $("#leaderboardtable").find("tr:gt(0)").remove();
     },
 
     toRegisterForm: function(){
@@ -194,10 +245,55 @@ var app = {
         $(".forgot-password-form").hide();
         $(".leaderboard-form").show();
 
+        $.ajax({
+          type: "GET",
+          url: "http://register-trivias.descubrenear.com/leaderboard",
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data){
+
+            console.log("GET leaderboard Successful")
+            console.log(data)
+
+            var table = document.getElementById("leaderboardtable");
+
+            for(var i=0; i<data.length; i++)
+            {
+                var row = table.insertRow(1);
+
+                var cell0 = row.insertCell(0);
+                var cell1 = row.insertCell(1);
+                var cell2 = row.insertCell(2);
+                var cell3 = row.insertCell(3);
+
+                cell0.innerHTML = data.length-i;
+                cell1.innerHTML = data[i].player_winner;
+                cell2.innerHTML = data[i].date;
+                cell3.innerHTML = data[i].prize_description;
+            }
+          },
+          error: function(data) {
+              console.log("GET leaderboard Failed")
+              console.log("HTTP Code: " +data.status);
+              if(data.status == 0)
+              {
+                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else if(data.status == 503)
+              {
+                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+              else
+              {
+                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+              }
+          }
+        });
+
 
     },
-
-
 
     signOff: function(){
         console.log("Sign off");
@@ -207,61 +303,84 @@ var app = {
         $(".register-form").hide();
         $(".playland").hide();
 
+        $(".next-game").show();
         $(".form").show();
         $(".login-form").show();
         $(".login-page").show();
+
+        // Stop youtube streaming
+        streaming_stop_sign_off = true;
+        streaming_player.stopVideo()
     },
 
     login: function(){
         console.log("Login");
 
-        var payload = {
-          email : $('#username').val(), 
-          password : sha256($('#password').val())
-        }
+        app.getNextGameDetails(function(){
 
-        if($('#username').val().length &&
-           $('#password').val().length)
-        {
+            if(global_streaming_id != null)
+            {
 
-          $.ajax({
-                type: "POST",
-                url: "http://register-trivias.descubrenear.com/login",
-                data: JSON.stringify(payload),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function(data){
-                    console.log("Login Successful")
-                    console.log(data)
-                    console.log(data.msg)
-                    $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
-                    app.toPlayLand();
-                },
-                error: function(data) {
-                    console.log("Login Failed");
-                    console.log("HTTP Code: " +data.status);
-                    if(data.status == 0)
-                    {
-                      var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
-                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                    }
-                    else if(data.status == 503)
-                    {
-                      var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
-                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                    }
-                    else
-                    {
-                      $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-                    }
-                }
-          });
-        }
-        else
-        {
-          var msg = "Por favor llena ambos campos para poder\niniciar sesión."
-          $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-        }
+              // Load streaming
+              streaming_player.loadVideoById(global_streaming_id);
+
+              var payload = {
+                email : $('#username').val(), 
+                password : sha256($('#password').val())
+              }
+
+              if($('#username').val().length &&
+                 $('#password').val().length)
+              {
+
+                $.ajax({
+                      type: "POST",
+                      url: "http://register-trivias.descubrenear.com/login",
+                      data: JSON.stringify(payload),
+                      contentType: "application/json; charset=utf-8",
+                      dataType: "json",
+                      success: function(data){
+                          console.log("Login Successful")
+                          console.log(data)
+                          console.log(data.msg)
+                          $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
+
+                          // Don't stop video while playing
+                          streaming_stop_sign_off = false;
+                          app.toPlayLand();
+                      },
+                      error: function(data) {
+                          console.log("Login Failed");
+                          console.log("HTTP Code: " +data.status);
+                          if(data.status == 0)
+                          {
+                            var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                            $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                          }
+                          else if(data.status == 503)
+                          {
+                            var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                            $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                          }
+                          else
+                          {
+                            $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                          }
+                      }
+                });
+              }
+              else
+              {
+                var msg = "Por favor llena ambos campos para poder\niniciar sesión."
+                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+              }
+            }
+            else
+            {
+                var msg = "El concurso de esta semana aún no comienza,\npor favor regresa más tarde."
+                $.notify(msg, {className:"info", globalPosition: "top left", autoHideDelay: "5000"});
+            }
+        });
     },
 
     forgotPasswordPlayer: function(){
@@ -513,6 +632,7 @@ var app = {
         $(".register-form").hide();
         $(".forgot-password-form").hide();
         $(".form").hide();
+        $(".next-game").hide();
 
         var active_player = true;
         var non_active_player_msg = false;

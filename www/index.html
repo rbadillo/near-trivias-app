@@ -29,7 +29,7 @@
 	    <div class="next-game">
 	    	<div class="form">
 	    		<img src="img/near.png" width="85" height="85"/>
-	    		<b><div id='next_game_message'>Bienvenido a Trivias Near.<br>El siguiente juego será el Jueves 16 de Agosto, 2018 a las 8PM CST.</div></b>
+	    		<b><div id='next_game_message'></div></b>
 	    	</div>
 	    </div>
 	    <div class="login-page">
@@ -79,7 +79,7 @@
 		    </form>
 
 		    <form class="leaderboard-form">
-		    	<table class="table-fill">
+		    	<table id=leaderboardtable class="table-fill">
 				<thead>
 					<tr>
 					<th class="text-center">#</th>
@@ -89,30 +89,6 @@
 					</tr>
 				</thead>
 				<tbody class="table-hover">
-					<tr>
-					<td class="text-center">1</td>
-					<td class="text-center">carloz</td>
-					<td class="text-center">16/Agosto/2018</td>
-					<td class="text-center">$ 50,000.00</td>
-					</tr>
-					<tr>
-					<td class="text-center">2</td>
-					<td class="text-center">b3t0</td>
-					<td class="text-center">26/Agosto/2018</td>
-					<td class="text-center">Viaje a Cancún</td>
-					</tr>
-					<tr>
-					<td class="text-center">3</td>
-					<td class="text-center">carloz</td>
-					<td class="text-center">16/Agosto/2018</td>
-					<td class="text-center">$ 50,000.00</td>
-					</tr>
-					<tr>
-					<td class="text-center">4</td>
-					<td class="text-center">b3t0</td>
-					<td class="text-center">26/Agosto/2018</td>
-					<td class="text-center">Viaje a Cancún</td>
-					</tr>
 				</tbody>
 				</table>
 
@@ -127,10 +103,9 @@
 	    <script type="text/javascript">
 
 	    	function onYouTubeIframeAPIReady() {
-	            var player;
 
-	            player = new YT.Player('livestreaming', {
-	                videoId: 'fUez4wACAGs', // YouTube Video ID
+	            streaming_player = new YT.Player('livestreaming', {
+	                videoId: global_streaming_id, // YouTube Video ID
 	                playerVars: {
 	                    autoplay: 1,        // Auto-play the video on load
 	                    controls: 0,        // Show pause/play buttons in player
@@ -142,11 +117,20 @@
 	                events: {
 	                    onReady: function(e) {
 	                        console.log("Youtube onReady")
+	                        console.log("Channel Id: " +global_streaming_id)
 	                    },
 	                    onStateChange: function(e){
 	                      if(e.data == 2)
 	                      {
-	                          player.playVideo();
+	                      	  // While Playing not stop the video
+	                      	  if(!streaming_stop_sign_off)
+	                      	  {
+	                          	streaming_player.playVideo();
+	                          }
+	                          else
+	                          {
+	                          	streaming_player.stopVideo();
+	                          }
 	                      }
 	                    }
 	                  }
@@ -177,8 +161,8 @@
 	        </div>
 	        <br>
 	        <div class="panel-social-networks">
-	          <a href="#"><i class="icon ion-social-facebook"></i></a>
-	          <a href="#"><i class="icon ion-social-instagram"></i></a>
+	          <a href="https://www.facebook.com/descubrenear"><i class="icon ion-social-facebook"></i></a>
+	          <a href="https://www.instagram.com/descubrenear"><i class="icon ion-social-instagram"></i></a>
 	        </div>
 	      </div>
 	    </div>
@@ -200,8 +184,10 @@
 	    <div id="activeplayers" class="active-players">
 	    	<i id="activeplayerscount" class="icon ion-person-stalker"> 0</i>
 	    </div>
+
 	    <div id="livestreaming" class="youtube" allowfullscreen="false"></div>
 		<script async src="https://www.youtube.com/iframe_api"></script>
+
 	    <div class="playland">
 
 		    <center>
