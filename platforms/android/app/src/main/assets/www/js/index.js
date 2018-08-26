@@ -181,6 +181,9 @@ var app = {
 
         // Empty Leaderboard Table
         $("#leaderboardtable").find("tr:gt(0)").remove();
+
+        // Empty Country Dropdown
+        $("#country").empty();
     },
 
     toRegisterForm: function(){
@@ -316,71 +319,71 @@ var app = {
     login: function(){
         console.log("Login");
 
-        app.getNextGameDetails(function(){
+        if($('#nickname_login').val().length &&
+           $('#password').val().length)
+        {
 
-            if(global_streaming_id != null)
-            {
+            app.getNextGameDetails(function(){
 
-              // Load streaming
-              streaming_player.loadVideoById(global_streaming_id);
+                if(global_streaming_id != null)
+                {
 
-              var payload = {
-                email : $('#username').val(), 
-                password : sha256($('#password').val())
-              }
+                  // Load streaming
+                  streaming_player.loadVideoById(global_streaming_id);
 
-              if($('#username').val().length &&
-                 $('#password').val().length)
-              {
+                  var payload = {
+                    nickname : $('#nickname_login').val(), 
+                    password : sha256($('#password').val())
+                  }
 
-                $.ajax({
-                      type: "POST",
-                      url: "http://register-trivias.descubrenear.com/login",
-                      data: JSON.stringify(payload),
-                      contentType: "application/json; charset=utf-8",
-                      dataType: "json",
-                      success: function(data){
-                          console.log("Login Successful")
-                          console.log(data)
-                          console.log(data.msg)
-                          $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
+                  $.ajax({
+                        type: "POST",
+                        url: "http://register-trivias.descubrenear.com/login",
+                        data: JSON.stringify(payload),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function(data){
+                            console.log("Login Successful")
+                            console.log(data)
+                            console.log(data.msg)
+                            $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "5000"});
 
-                          // Don't stop video while playing
-                          streaming_stop_sign_off = false;
-                          app.toPlayLand();
-                      },
-                      error: function(data) {
-                          console.log("Login Failed");
-                          console.log("HTTP Code: " +data.status);
-                          if(data.status == 0)
-                          {
-                            var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
-                            $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                          }
-                          else if(data.status == 503)
-                          {
-                            var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
-                            $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                          }
-                          else
-                          {
-                            $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-                          }
-                      }
-                });
-              }
-              else
-              {
-                var msg = "Por favor llena ambos campos para poder\niniciar sesión."
-                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-              }
-            }
-            else
-            {
-                var msg = "El concurso de esta semana aún no comienza,\npor favor regresa más tarde."
-                $.notify(msg, {className:"info", globalPosition: "top left", autoHideDelay: "5000"});
-            }
-        });
+                            // Don't stop video while playing
+                            streaming_stop_sign_off = false;
+                            app.toPlayLand();
+                        },
+                        error: function(data) {
+                            console.log("Login Failed");
+                            console.log("HTTP Code: " +data.status);
+                            if(data.status == 0)
+                            {
+                              var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                              $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                            }
+                            else if(data.status == 503)
+                            {
+                              var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                              $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                            }
+                            else
+                            {
+                              $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                            }
+                        }
+                  });
+                }
+                else
+                {
+                    var msg = "El concurso de esta semana aún no comienza,\npor favor regresa más tarde."
+                    $.notify(msg, {className:"info", globalPosition: "top left", autoHideDelay: "5000"});
+                }
+            });
+        }
+        else
+        {
+          var msg = "Por favor llena ambos campos para poder\niniciar sesión."
+          $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+        }
     },
 
     forgotPasswordPlayer: function(){
@@ -390,37 +393,46 @@ var app = {
           email : $('#emailfgpass').val()
         }
 
-        $.ajax({
-              type: "POST",
-              url: "http://register-trivias.descubrenear.com/forgotpassword",
-              data: JSON.stringify(payload),
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              success: function(data){
-                  console.log("Forgot Password Successful")
-                  console.log(data)
-                  console.log(data.msg)
-                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "9000"});
-              },
-              error: function(data) {
-                  console.log("Forgot Password Failed");
-                  console.log("HTTP Code: " +data.status);
-                  if(data.status == 0)
-                  {
-                    var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
-                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                  }
-                  else if(data.status == 503)
-                  {
-                    var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
-                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                  }
-                  else
-                  {
-                      $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "9000"});
-                  }
-              }
-        });
+        if($('#emailfgpass').val().length)
+        {
+
+          $.ajax({
+                type: "POST",
+                url: "http://register-trivias.descubrenear.com/forgotpassword",
+                data: JSON.stringify(payload),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                    console.log("Forgot Password Successful")
+                    console.log(data)
+                    console.log(data.msg)
+                    $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "9000"});
+                },
+                error: function(data) {
+                    console.log("Forgot Password Failed");
+                    console.log("HTTP Code: " +data.status);
+                    if(data.status == 0)
+                    {
+                      var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                    }
+                    else if(data.status == 503)
+                    {
+                      var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                      $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                    }
+                    else
+                    {
+                        $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "9000"});
+                    }
+                }
+          });
+        }
+        else
+        {
+            var msg = "Por favor escribe tu correo electrónico\npara poder recuperar la cuenta."
+            $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+        }
     },
 
     registerPlayer: function(){
@@ -430,7 +442,7 @@ var app = {
         // Verify that all fields have information
         if( $('#name').val().trim().length &&
             $('#lastname').val().trim().length &&
-            $('#nickname').val().trim().length &&
+            $('#nickname_register').val().trim().length &&
             $('#age').val().trim().length &&
             $('#email').val().trim().length &&
             $('#country').val() != null &&
@@ -444,67 +456,88 @@ var app = {
 
             if(emailRegex.test($('#email').val().trim()))
             {
-              if( $('#newpassword1').val() == $('#newpassword2').val() )
+
+              if( $('#nickname_register').val().trim().indexOf(' ') == -1)
               {
-                  if(passwordRegex.test($('#newpassword1').val().trim()))
+                  if( $('#newpassword1').val() == $('#newpassword2').val() )
                   {
-                    var payload = {
-                      name : $('#name').val(),
-                      lastname : $('#lastname').val(),
-                      nickname: $('#nickname').val().trim(),
-                      age : $('#age').val(),
-                      email : $('#email').val(),
-                      country : $('#country').val(),
-                      state : $('#state').val(),
-                      city : $('#city').val(), 
-                      password : sha256($('#newpassword1').val().trim())
-                    }
+                      if(passwordRegex.test($('#newpassword1').val().trim()))
+                      {
+                        var payload = {
+                          name : $('#name').val(),
+                          lastname : $('#lastname').val(),
+                          nickname: $('#nickname_register').val().trim(),
+                          age : $('#age').val(),
+                          email : $('#email').val(),
+                          country : $('#country').val(),
+                          state : $('#state').val(),
+                          city : $('#city').val(), 
+                          password : sha256($('#newpassword1').val().trim())
+                        }
 
-                    $.ajax({
-                          type: "POST",
-                          url: "http://register-trivias.descubrenear.com/register",
-                          data: JSON.stringify(payload),
-                          contentType: "application/json; charset=utf-8",
-                          dataType: "json",
-                          success: function(data){
-                              console.log("Register Successful")
-                              console.log(data)
-                              console.log(data.msg)
-                              $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "10000"});
+                        $.ajax({
+                              type: "POST",
+                              url: "http://register-trivias.descubrenear.com/register",
+                              data: JSON.stringify(payload),
+                              contentType: "application/json; charset=utf-8",
+                              dataType: "json",
+                              success: function(data){
+                                  console.log("Register Successful")
+                                  console.log(data)
+                                  console.log(data.msg)
+                                  $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "10000"});
 
-                              setTimeout(function(){
-                                app.toLoginForm()
-                              }, 11000);
+                                  setTimeout(function(){
+                                    
+                                    app.toLoginForm()
 
-                          },
-                          error: function(data) {
-                              console.log("Register Failed");
-                              console.log("HTTP Code: " +data.status);
-                              if(data.status == 0)
-                              {
-                                var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
-                                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                                    $('#name').val("");
+                                    $('#lastname').val("");
+                                    $('#nickname_register').val("");
+                                    $('#age').val("");
+                                    $('#email').val("");
+                                    $('#country').val("");
+                                    $('#state').val("");
+                                    $('#city').val("");
+                                    $('#newpassword1').val("");
+                                    $('#newpassword2').val("");
+
+                                  }, 11000);
+
+                              },
+                              error: function(data) {
+                                  console.log("Register Failed");
+                                  console.log("HTTP Code: " +data.status);
+                                  if(data.status == 0)
+                                  {
+                                    var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                                  }
+                                  else if(data.status == 503)
+                                  {
+                                    var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                                    $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                                  }
+                                  else
+                                  {
+                                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                                  }
                               }
-                              else if(data.status == 503)
-                              {
-                                var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
-                                $.notify(msg, {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
-                              }
-                              else
-                              {
-                                $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
-                              }
-                          }
-                    });
+                        });
+                      }
+                      else
+                      {
+                          $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                      }
                   }
                   else
                   {
-                      $.notify("La contraseña debe tener mínimo 6 caracteres\n y al menos 1 letra minúscula, 1 letra mayúscula\ny 1 número.", {className:"error", globalPosition: "top left", autoHideDelay: "3000"});
+                      $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
                   }
               }
               else
               {
-                  $.notify("Las contraseña y su confirmación no son iguales", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
+                 $.notify("Nickname no puede contener espacios", {className:"error", globalPosition: "top left", autoHideDelay: "2500"});
               }
           }
           else
@@ -650,11 +683,10 @@ var app = {
             fg_width: 0.12
         }
 
-        var username= $('#username').val();
-        console.log("Player: "+username)
-        window.localStorage["player"] = username;
-        var tmp_username_socket_io = username.split("@")[0]
-        var server_url = "http://trivias.descubrenear.com?player="+tmp_username_socket_io
+        var nickname= $('#nickname_login').val();
+        console.log("Player: "+nickname)
+        window.localStorage["player"] = nickname;
+        var server_url = "http://trivias.descubrenear.com?player="+nickname
         socket = io(server_url,{'forceNew':true })
 
 
