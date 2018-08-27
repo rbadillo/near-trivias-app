@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "displayName": "Trivias Near",
   "cordova": {
-    "platforms": [
-      "android"
-    ],
+    "platforms": [],
     "plugins": {
-      "cordova-plugin-firebase": {},
       "cordova-plugin-whitelist": {},
       "cordova-plugin-media": {},
       "cordova-plugin-file": {}
