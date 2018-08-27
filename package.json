@@ -6,9 +6,12 @@
     "platforms": [
       "android"
     ],
-    "plugins": {}
+    "plugins": {
+      "cordova-plugin-firebase": {}
+    }
   },
   "dependencies": {
-    "cordova-android": "~7.0.0"
+    "cordova-android": "~7.0.0",
+    "cordova-plugin-firebase": "^1.0.5"
   }
 }
