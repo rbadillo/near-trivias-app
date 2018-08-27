@@ -7,10 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-firebase": {
       "PACKAGE_NAME": "com.descubrenear.trivia"
     },
-    "cordova-plugin-firebase": {
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.descubrenear.trivia"
     }
   },
