@@ -194,6 +194,8 @@ var app = {
         $("#logo-register-form").show();
         $(".register-form").show();
 
+        $.LoadingOverlay("show");
+
         $.ajax({
           type: "GET",
           url: "http://register-trivias.descubrenear.com/countries",
@@ -201,6 +203,7 @@ var app = {
           dataType: "json",
           success: function(data){
 
+            $.LoadingOverlay("hide");
             console.log("GET Countries Successful")
             console.log(data)
 
@@ -214,6 +217,8 @@ var app = {
             }
           },
           error: function(data) {
+
+              $.LoadingOverlay("hide");
               console.log("GET Countries Failed")
               console.log("HTTP Code: " +data.status);
               if(data.status == 0)
@@ -248,6 +253,8 @@ var app = {
         $(".forgot-password-form").hide();
         $(".leaderboard-form").show();
 
+        $.LoadingOverlay("show");
+
         $.ajax({
           type: "GET",
           url: "http://register-trivias.descubrenear.com/leaderboard",
@@ -255,6 +262,7 @@ var app = {
           dataType: "json",
           success: function(data){
 
+            $.LoadingOverlay("hide");
             console.log("GET leaderboard Successful")
             console.log(data)
 
@@ -276,6 +284,8 @@ var app = {
             }
           },
           error: function(data) {
+
+              $.LoadingOverlay("hide");
               console.log("GET leaderboard Failed")
               console.log("HTTP Code: " +data.status);
               if(data.status == 0)
@@ -317,12 +327,13 @@ var app = {
     },
 
     login: function(){
+
         console.log("Login");
 
         if($('#nickname_login').val().length &&
            $('#password').val().length)
         {
-
+            $.LoadingOverlay("show");
             app.getNextGameDetails(function(){
 
                 if(global_streaming_id != null)
@@ -343,6 +354,8 @@ var app = {
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         success: function(data){
+
+                            $.LoadingOverlay("hide");
                             console.log("Login Successful")
                             console.log(data)
                             console.log(data.msg)
@@ -353,6 +366,8 @@ var app = {
                             app.toPlayLand();
                         },
                         error: function(data) {
+
+                            $.LoadingOverlay("hide");
                             console.log("Login Failed");
                             console.log("HTTP Code: " +data.status);
                             if(data.status == 0)
@@ -374,6 +389,7 @@ var app = {
                 }
                 else
                 {
+                    $.LoadingOverlay("hide");
                     var msg = "El concurso de esta semana aún no comienza,\npor favor regresa más tarde."
                     $.notify(msg, {className:"info", globalPosition: "top left", autoHideDelay: "5000"});
                 }
@@ -396,6 +412,8 @@ var app = {
         if($('#emailfgpass').val().length)
         {
 
+          $.LoadingOverlay("show");
+
           $.ajax({
                 type: "POST",
                 url: "http://register-trivias.descubrenear.com/forgotpassword",
@@ -403,12 +421,16 @@ var app = {
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
+
+                    $.LoadingOverlay("hide");
                     console.log("Forgot Password Successful")
                     console.log(data)
                     console.log(data.msg)
                     $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "9000"});
                 },
                 error: function(data) {
+
+                    $.LoadingOverlay("hide");
                     console.log("Forgot Password Failed");
                     console.log("HTTP Code: " +data.status);
                     if(data.status == 0)
@@ -475,6 +497,8 @@ var app = {
                           password : sha256($('#newpassword1').val().trim())
                         }
 
+                        $.LoadingOverlay("show");
+
                         $.ajax({
                               type: "POST",
                               url: "http://register-trivias.descubrenear.com/register",
@@ -482,6 +506,8 @@ var app = {
                               contentType: "application/json; charset=utf-8",
                               dataType: "json",
                               success: function(data){
+
+                                  $.LoadingOverlay("hide");
                                   console.log("Register Successful")
                                   console.log(data)
                                   console.log(data.msg)
@@ -504,8 +530,11 @@ var app = {
 
                                   }, 11000);
 
+
                               },
                               error: function(data) {
+
+                                  $.LoadingOverlay("hide");
                                   console.log("Register Failed");
                                   console.log("HTTP Code: " +data.status);
                                   if(data.status == 0)
@@ -520,7 +549,7 @@ var app = {
                                   }
                                   else
                                   {
-                                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHideDelay: "5000"});
+                                    $.notify(data.responseJSON.msg, {className:"error", globalPosition: "top left", autoHide: false});
                                   }
                               }
                         });
@@ -558,6 +587,8 @@ var app = {
 
         var country = $('#country').val()
 
+        $.LoadingOverlay("show");
+
         $.ajax({
           type: "GET",
           url: "http://register-trivias.descubrenear.com/states?country="+country,
@@ -565,6 +596,7 @@ var app = {
           dataType: "json",
           success: function(data){
 
+            $.LoadingOverlay("hide");
             console.log("GET States Successful")
             console.log(data)
 
@@ -582,6 +614,8 @@ var app = {
 
           },
           error: function(data) {
+
+              $.LoadingOverlay("hide");
               console.log("GET States Failed")
               console.log("HTTP Code: " +data.status);
               if(data.status == 0)
@@ -615,6 +649,8 @@ var app = {
             var country = $('#country').val()
             var state = $('#state').val()
 
+            $.LoadingOverlay("show");
+
             $.ajax({
               type: "GET",
               url: "http://register-trivias.descubrenear.com/cities?country="+country+"&state="+state,
@@ -622,6 +658,7 @@ var app = {
               dataType: "json",
               success: function(data){
 
+                $.LoadingOverlay("hide");
                 console.log("GET Cities Successful")
                 console.log(data)
 
@@ -637,6 +674,8 @@ var app = {
                 }
               },
               error: function(data) {
+
+                  $.LoadingOverlay("hide");
                   console.log("GET Cities Failed")
                   console.log("HTTP Code: " +data.status);
                   if(data.status == 0)
@@ -933,9 +972,9 @@ var app = {
                 $('#answer2').text("");
                 $('#answer3').text("");
                 $('#answer4').text("");
+                $('#final_message').text("");
                 $(".playland").hide();
                 global_client_timer = null;
-                $('#final_message').text("");
 
                 if(!active_player && !non_active_player_msg)
                 {
