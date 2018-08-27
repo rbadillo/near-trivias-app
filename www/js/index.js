@@ -183,7 +183,7 @@ var app = {
         $("#leaderboardtable").find("tr:gt(0)").remove();
 
         // Empty Country Dropdown
-        $("#country").empty();
+        $("#country").children("option:not(:first)").remove();
     },
 
     toRegisterForm: function(){
@@ -488,7 +488,7 @@ var app = {
                                   $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "10000"});
 
                                   setTimeout(function(){
-                                    
+
                                     app.toLoginForm()
 
                                     $('#name').val("");
@@ -858,10 +858,11 @@ var app = {
               $('#btn4').css('background','#4CAF50');
             }
 
-            if(active_player && msg.answer != player_answer)
+            if(active_player && msg.answer != player_answer && msg.tie == 0)
             {
                 active_player = false;
 
+                // Set Red Color
                 if(player_answer == "1")
                 {
                   $('#btn1').css('background','#FE3838');
@@ -878,6 +879,26 @@ var app = {
                 {
                   $('#btn4').css('background','#FE3838');
                 }
+            }
+            else if(active_player && msg.answer != player_answer && msg.tie == 1)
+            {
+                // Set Red Color
+                if(player_answer == "1")
+                {
+                  $('#btn1').css('background','#FE3838');
+                }
+                else if(player_answer == "2")
+                {
+                  $('#btn2').css('background','#FE3838');
+                }
+                else if(player_answer == "3")
+                {
+                  $('#btn3').css('background','#FE3838');
+                }
+                else if(player_answer == "4")
+                {
+                  $('#btn4').css('background','#FE3838');
+                } 
             }
             
             console.log("verify_answer, checking flag active_player: " +active_player)
@@ -899,6 +920,11 @@ var app = {
             $('#answer3').text(" " +players_answer_distribution["3"]);
             $('#answer4').text(" " +players_answer_distribution["4"]);
 
+            if(msg.tie == 1)
+            {
+              $('#final_message').text(msg.final_message);
+            }
+
             setTimeout(function(){
                 $("#CountDownTimer").TimeCircles().rebuild();
                 $('#livestreaming').height($(window).height() - $('.navbar').height() - $('.active-players').height());
@@ -909,6 +935,7 @@ var app = {
                 $('#answer4').text("");
                 $(".playland").hide();
                 global_client_timer = null;
+                $('#final_message').text("");
 
                 if(!active_player && !non_active_player_msg)
                 {
