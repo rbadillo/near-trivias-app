@@ -15,6 +15,9 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.descubrenear.trivias"
+    },
+    "cordova-plugin-firebase": {
+      "PACKAGE_NAME": "com.descubrenear.trivias"
     }
   },
   "dependent_plugins": {}

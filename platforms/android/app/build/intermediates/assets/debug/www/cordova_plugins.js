@@ -188,6 +188,14 @@ module.exports = [
     "clobbers": [
       "window.Media"
     ]
+  },
+  {
+    "id": "cordova-plugin-firebase.FirebasePlugin",
+    "file": "plugins/cordova-plugin-firebase/www/firebase.js",
+    "pluginId": "cordova-plugin-firebase",
+    "clobbers": [
+      "FirebasePlugin"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -195,7 +203,8 @@ module.exports.metadata =
 {
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-media": "5.0.2",
-  "cordova-plugin-whitelist": "1.3.3"
+  "cordova-plugin-whitelist": "1.3.3",
+  "cordova-plugin-firebase": "1.1.2"
 };
 // BOTTOM OF METADATA
 });

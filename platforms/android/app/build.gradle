@@ -90,7 +90,25 @@ ext {
     cdvPluginPostBuildExtras = []
 }
 
+
+// Fabric Cordova Plugin - Start Fabric Build Tools 
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://maven.google.com' }
+    }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.4'
+        classpath 'com.google.gms:google-services:+'
+    }
+}
+
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
+// Fabric Cordova Plugin - End Fabric Build Tools
+
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "../cordova-plugin-firebase/trivias-build.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -259,6 +277,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    compile "com.google.android.gms:play-services-tagmanager:+"
+    compile "com.google.firebase:firebase-core:+"
+    compile "com.google.firebase:firebase-messaging:+"
+    compile "com.google.firebase:firebase-config:+"
+    compile "com.google.firebase:firebase-perf:+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
