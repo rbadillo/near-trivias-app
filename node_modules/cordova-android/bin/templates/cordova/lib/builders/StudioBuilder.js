@@ -23,7 +23,6 @@ var util = require('util');
 var path = require('path');
 var shell = require('shelljs');
 var spawn = require('cordova-common').superspawn.spawn;
-var events = require('cordova-common').events;
 var CordovaError = require('cordova-common').CordovaError;
 var check_reqs = require('../check_reqs');
 
@@ -59,7 +58,7 @@ StudioBuilder.prototype.getArgs = function (cmd, opts) {
     // to allow dex in process
     args.push('-Dorg.gradle.jvmargs=-Xmx2048m');
     // allow NDK to be used - required by Gradle 1.5 plugin
-    // args.push('-Pandroid.useDeprecatedNdk=true');
+    args.push('-Pandroid.useDeprecatedNdk=true');
     args.push.apply(args, opts.extraArgs);
     // Shaves another 100ms, but produces a "try at own risk" warning. Not worth it (yet):
     // args.push('-Dorg.gradle.parallel=true');
@@ -168,7 +167,7 @@ StudioBuilder.prototype.prepBuildFiles = function () {
         }
     };
     subProjects.forEach(function (p) {
-        events.emit('log', 'Subproject Path: ' + p);
+        console.log('Subproject Path: ' + p);
         var libName = p.replace(/[/\\]/g, ':').replace(name + '-', '');
         if (libName !== 'app') {
             depsList += '    implementation(project(path: ":' + libName + '"))';
