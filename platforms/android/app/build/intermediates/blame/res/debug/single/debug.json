@@ -92,10 +92,6 @@
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/c6e44cdb0aa95cd9b4a56f25618a15a6/res/drawable-mdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png"
     },
     {
-        "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_icon.png.flat",
-        "source": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/src/main/res/mipmap-xxxhdpi/icon.png"
-    },
-    {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal_pressed.9.png.flat",
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/f2cfc2b1708009391e60a219735b7cda/res/drawable-hdpi-v4/notification_bg_normal_pressed.9.png"
     },
@@ -180,10 +176,6 @@
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/f2cfc2b1708009391e60a219735b7cda/res/drawable/notification_bg.xml"
     },
     {
-        "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-hdpi_icon.png.flat",
-        "source": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/src/main/res/mipmap-hdpi/icon.png"
-    },
-    {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_googleg_disabled_color_18.png.flat",
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/c6e44cdb0aa95cd9b4a56f25618a15a6/res/drawable-mdpi-v4/googleg_disabled_color_18.png"
     },
@@ -194,10 +186,6 @@
     {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_text_dark_normal.xml.flat",
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/c6e44cdb0aa95cd9b4a56f25618a15a6/res/drawable/common_google_signin_btn_text_dark_normal.xml"
-    },
-    {
-        "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi_icon.png.flat",
-        "source": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/src/main/res/mipmap-xhdpi/icon.png"
     },
     {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/layout-v16_notification_template_custom_big.xml.flat",
@@ -312,16 +300,8 @@
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/6ca765e0b1f923943d856c44db014242/res/layout/notification_template_big_media_narrow_custom.xml"
     },
     {
-        "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_icon.png.flat",
-        "source": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/src/main/res/mipmap-xxhdpi/icon.png"
-    },
-    {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
         "source": "/Users/rbadillo/.gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/c6e44cdb0aa95cd9b4a56f25618a15a6/res/drawable-hdpi-v4/common_google_signin_btn_text_light_normal_background.9.png"
-    },
-    {
-        "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/mipmap-ldpi_icon.png.flat",
-        "source": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/src/main/res/mipmap-ldpi/icon.png"
     },
     {
         "merged": "/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",

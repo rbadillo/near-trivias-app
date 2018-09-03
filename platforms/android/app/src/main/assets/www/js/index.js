@@ -52,8 +52,41 @@ var app = {
     onDeviceReady: function() {
         // Now safe to use device APIs
         console.log("DEVICE READY")
+
         app.getNextGameDetails(function(){
           console.log("getNextGameDetails callback")
+        });
+
+        // Initialize Firebase Plugin
+        window.FirebasePlugin.initFirebase(function(success,error){
+
+          if(error)
+          {
+            console.log("FirebasePlugin.initFirebase: " +error)
+          }
+          else
+          {
+            console.log("FirebasePlugin.initFirebase: " +success)
+
+
+            // Ask for iOS Push Notifications
+            window.FirebasePlugin.hasPermission(function(data){
+                if(!data.isEnabled)
+                {
+                  // iOS Only
+                  window.FirebasePlugin.grantPermission();
+                }
+            });
+          }
+        })
+
+        window.FirebasePlugin.onNotificationOpen(function(notification) {
+            
+            console.log(notification);
+
+        }, function(error) {
+
+            console.error(error);
         });
     },
 
@@ -330,6 +363,113 @@ var app = {
 
         console.log("Login");
 
+        window.FirebasePlugin.getToken(function(token) {
+
+          if(window.localStorage["player"].length)
+          {
+              var payload = {
+                nickname : window.localStorage["player"], 
+                push_token : token
+              }
+
+              $.ajax({
+                    type: "PUT",
+                    url: "http://register-trivias.descubrenear.com/player/push_token",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+
+                        console.log("Push Token Successful")
+                        console.log(data.msg)
+
+                        window.FirebasePlugin.subscribe("game_notifications", function(success) {
+                            console.log("FirebasePlugin Subscribe Success: " +success);
+                        }, function(error) {
+                            console.log("FirebasePlugin Subscribe Error: " +error);
+                        });
+                    },
+                    error: function(data) {
+
+                        console.log("Push Token Failed");
+                        console.log("HTTP Code: " +data.status);
+
+                        if(data.status == 0)
+                        {
+                          var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                          console.log("Push Token: " +msg)
+                        }
+                        else if(data.status == 503)
+                        {
+                          var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                          console.log("Push Token: " +msg)
+                        }
+                        else
+                        {
+                          console.log("Push Token: " +data.responseJSON.msg)
+                        }
+                  }
+            });
+          }
+
+        }, function(error) {
+            console.error("Firebase getToken Error: " +error);
+        });
+
+        window.FirebasePlugin.onTokenRefresh(function(token) {
+
+          if(window.localStorage["player"].length)
+          {
+              var payload = {
+                nickname : window.localStorage["player"], 
+                push_token : token
+              }
+
+              $.ajax({
+                    type: "PUT",
+                    url: "http://register-trivias.descubrenear.com/player/push_token",
+                    data: JSON.stringify(payload),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+
+                        console.log("Push Token Successful")
+                        console.log(data.msg)
+                        
+                        window.FirebasePlugin.subscribe("game_notifications", function(success) {
+                            console.log("FirebasePlugin Subscribe Success: " +success);
+                        }, function(error) {
+                            console.log("FirebasePlugin Subscribe Error: " +error);
+                        });
+
+                    },
+                    error: function(data) {
+
+                        console.log("Push Token Failed");
+                        console.log("HTTP Code: " +data.status);
+
+                        if(data.status == 0)
+                        {
+                          var msg = "Hubo un error con tu conexión a internet,\npor favor intenta de nuevo."
+                          console.log("Push Token: " +msg)
+                        }
+                        else if(data.status == 503)
+                        {
+                          var msg = "Hubo un error con el servidor,\npor favor intenta de nuevo."
+                          console.log("Push Token: " +msg)
+                        }
+                        else
+                        {
+                          console.log("Push Token: " +data.responseJSON.msg)
+                        }
+                  }
+            });
+          }
+
+        },function(error) {
+            console.error("Firebase onTokenRefresh Error: " +error);
+        });
+
         if($('#nickname_login').val().length &&
            $('#password').val().length)
         {
@@ -512,6 +652,8 @@ var app = {
                                   console.log(data)
                                   console.log(data.msg)
                                   $.notify(data.msg, {className:"success", globalPosition: "top left", autoHideDelay: "10000"});
+
+                                  window.localStorage["player"] = $('#nickname_register').val().trim();
 
                                   setTimeout(function(){
 
@@ -724,7 +866,6 @@ var app = {
 
         var nickname= $('#nickname_login').val();
         console.log("Player: "+nickname)
-        window.localStorage["player"] = nickname;
         var server_url = "http://trivias.descubrenear.com?player="+nickname
         socket = io(server_url,{'forceNew':true })
 

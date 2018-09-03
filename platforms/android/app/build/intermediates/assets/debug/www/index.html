@@ -40,7 +40,7 @@
 		      <img id="logo-register-form" style='display: none' src="img/near.png" width="85" height="85"/>	
 		      <input type="text" id=name placeholder="Nombre"/>
 		      <input type="text" id=lastname placeholder="Apellido"/>
-		      <input type="text" id=nickname_register placeholder="Nickname"/>
+		      <input type="email" id=nickname_register placeholder="Nickname"/>
 		      <input type="number" id=age placeholder="Edad"/>
 		      <input type="email" id=email placeholder="Correo electrónico"/>
 		      <div> País: 
@@ -65,7 +65,7 @@
 		    </form>
 
 		    <form class="login-form">
-		      <input type="text" id="nickname_login" placeholder="Nickname"/>
+		      <input type="email" id="nickname_login" placeholder="Nickname"/>
 		      <input type="password" id="password" placeholder="Contraseña"/>
 		      <button type="button" onClick="app.login()">Iniciar sesión</button>
 		      <div class="messageLogin" onClick="app.toRegisterForm()">¿No tienes cuenta? <a href="#">Registrate aquí</a></div>
