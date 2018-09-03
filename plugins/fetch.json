@@ -23,18 +23,18 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-firebase": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-firebase"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-device": {
     "source": {
       "type": "registry",
       "id": "cordova-plugin-device@^2.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-firebase": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase"
     },
     "is_top_level": true,
     "variables": {}

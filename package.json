@@ -10,8 +10,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-media": {},
       "cordova-plugin-file": {},
-      "cordova-plugin-firebase": {},
-      "cordova-plugin-device": {}
+      "cordova-plugin-device": {},
+      "cordova-plugin-firebase": {}
     }
   },
   "dependencies": {

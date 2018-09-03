@@ -182,14 +182,6 @@ module.exports = [
     "runs": true
   },
   {
-    "id": "cordova-plugin-firebase.FirebasePlugin",
-    "file": "plugins/cordova-plugin-firebase/www/firebase.js",
-    "pluginId": "cordova-plugin-firebase",
-    "clobbers": [
-      "FirebasePlugin"
-    ]
-  },
-  {
     "id": "cordova-plugin-media.MediaError",
     "file": "plugins/cordova-plugin-media/www/MediaError.js",
     "pluginId": "cordova-plugin-media",
@@ -204,6 +196,14 @@ module.exports = [
     "clobbers": [
       "window.Media"
     ]
+  },
+  {
+    "id": "cordova-plugin-firebase.FirebasePlugin",
+    "file": "plugins/cordova-plugin-firebase/www/firebase.js",
+    "pluginId": "cordova-plugin-firebase",
+    "clobbers": [
+      "FirebasePlugin"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -211,9 +211,9 @@ module.exports.metadata =
 {
   "cordova-plugin-device": "2.0.2",
   "cordova-plugin-file": "6.0.1",
-  "cordova-plugin-firebase": "1.1.2",
   "cordova-plugin-media": "5.0.2",
-  "cordova-plugin-whitelist": "1.3.3"
+  "cordova-plugin-whitelist": "1.3.3",
+  "cordova-plugin-firebase": "1.1.2"
 };
 // BOTTOM OF METADATA
 });
