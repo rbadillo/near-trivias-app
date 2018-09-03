@@ -629,6 +629,7 @@ var app = {
                           name : $('#name').val(),
                           lastname : $('#lastname').val(),
                           nickname: $('#nickname_register').val().trim(),
+                          platform: device.platform,
                           age : $('#age').val(),
                           email : $('#email').val(),
                           country : $('#country').val(),

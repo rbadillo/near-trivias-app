@@ -16,6 +16,9 @@
         <param name="android-package" value="org.apache.cordova.firebase.FirebasePlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <name>Trivias Near</name>
     <description>
         Trivias Near
@@ -25,7 +28,6 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <icon src="icon.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
 </widget>

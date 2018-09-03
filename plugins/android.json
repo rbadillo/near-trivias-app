@@ -18,6 +18,9 @@
     },
     "cordova-plugin-firebase": {
       "PACKAGE_NAME": "com.descubrenear.trivias"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.descubrenear.trivias"
     }
   },
   "dependent_plugins": {}
