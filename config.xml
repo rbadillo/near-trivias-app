@@ -15,5 +15,5 @@
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-firebase" spec="^1.1.2" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <engine name="android" spec="^7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
