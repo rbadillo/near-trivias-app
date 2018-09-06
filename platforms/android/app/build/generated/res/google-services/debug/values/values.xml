@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">1012101478345-on319lin3u1cjrot7n65ajhdfpllr2qu.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://trivias-near.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">1012101478345</string>
+    <string name="google_api_key" translatable="false">AIzaSyAXp6SAjkTofyIk4rpCJcr-WSk2bawHKJg</string>
+    <string name="google_app_id" translatable="false">1:1012101478345:android:3221d9773117196d</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAXp6SAjkTofyIk4rpCJcr-WSk2bawHKJg</string>
+    <string name="google_storage_bucket" translatable="false">trivias-near.appspot.com</string>
+    <string name="project_id" translatable="false">trivias-near</string>
+</resources>

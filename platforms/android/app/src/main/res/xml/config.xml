@@ -15,6 +15,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="FirebasePlugin">
+        <param name="android-package" value="org.apache.cordova.firebase.FirebasePlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Trivias Near</name>
     <description>
         Trivias Near
@@ -24,10 +28,11 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <icon platform="android" qualifier="mdpi" src="mdpi.png" />
+    <icon platform="android" qualifier="hdpi" src="hdpi.png" />
+    <icon platform="android" qualifier="xhdpi" src="xhdpi.png" />
+    <icon platform="android" qualifier="xxhdpi" src="xxhdpi.png" />
+    <icon platform="android" qualifier="xxxhdpi" src="xxxhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="orientation" value="portrait" />
-    <feature name="FirebasePlugin">
-        <param name="android-package" value="org.apache.cordova.firebase.FirebasePlugin" />
-        <param name="onload" value="true" />
-    </feature>
 </widget>

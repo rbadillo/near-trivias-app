@@ -9,11 +9,16 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <icon platform="android" qualifier="mdpi" src="mdpi.png" />
+    <icon platform="android" qualifier="hdpi" src="hdpi.png" />
+    <icon platform="android" qualifier="xhdpi" src="xhdpi.png" />
+    <icon platform="android" qualifier="xxhdpi" src="xxhdpi.png" />
+    <icon platform="android" qualifier="xxxhdpi" src="xxxhdpi.png" />
     <preference name="orientation" value="portrait" />
     <plugin name="cordova-plugin-whitelist" spec="~1.3.3" />
     <plugin name="cordova-plugin-media" spec="^5.0.2" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
-    <engine name="android" spec="~7.0.0" />
     <plugin name="cordova-plugin-firebase" spec="^1.1.2" />
+    <engine name="android" spec="^7.0.0" />
 </widget>
