@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Sep 05 22:55:11 EDT 2018
+#Wed Sep 05 23:21:04 EDT 2018
 14.set=ANDROID_RESOURCE
 180.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/fabric/com.crashlytics.sdk.android.answers.properties
 118.set=ANDROID_RESOURCE
