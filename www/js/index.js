@@ -365,6 +365,12 @@ var app = {
 
         window.FirebasePlugin.getToken(function(token) {
 
+          // Fresh installation and already registered
+          if(window.localStorage["player"] == undefined)
+          {
+            window.localStorage["player"] = $('#nickname_login').val().trim();
+          }
+
           if(window.localStorage["player"].length)
           {
               var payload = {
@@ -417,6 +423,12 @@ var app = {
         });
 
         window.FirebasePlugin.onTokenRefresh(function(token) {
+
+          // Fresh installation and already registered
+          if(window.localStorage["player"] == undefined)
+          {
+            window.localStorage["player"] = $('#nickname_login').val().trim();
+          }
 
           if(window.localStorage["player"].length)
           {
