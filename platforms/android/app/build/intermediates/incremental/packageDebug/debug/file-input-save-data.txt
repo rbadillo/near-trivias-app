@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Sep 05 23:21:04 EDT 2018
+#Mon Oct 01 18:09:06 CDT 2018
 14.set=ANDROID_RESOURCE
 180.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/fabric/com.crashlytics.sdk.android.answers.properties
 118.set=ANDROID_RESOURCE
@@ -9,7 +9,7 @@
 26.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-land-mdpi-v4/screen.png
 78.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/cordova-js-src/android/promptbasednativeapi.js
 21.set=ANDROID_RESOURCE
-53.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/common_google_signin_btn_text_light.xml
+53.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout/notification_action_tombstone.xml
 107.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 159.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 125.set=ANDROID_RESOURCE
@@ -24,7 +24,7 @@
 34.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 88.set=JAVA_RESOURCE
 86.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
-65.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-hdpi-v4/notification_bg_normal.9.png
+65.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/notification_tile_bg.xml
 61.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 40.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-mdpi-v4/googleg_standard_color_18.png
 186.set=ANDROID_RESOURCE
@@ -62,7 +62,7 @@
 27.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/AndroidManifest.xml
 79.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/js/TimeCircles.js
 31.set=ASSET
-54.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout/notification_action_tombstone.xml
+54.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/common_google_signin_btn_text_light.xml
 108.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 135.set=ANDROID_RESOURCE
 81.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xhdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png
@@ -78,13 +78,13 @@
 98.set=ANDROID_RESOURCE
 87.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 10.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
-66.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/notification_tile_bg.xml
+66.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-hdpi-v4/notification_bg_normal.9.png
 41.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/play-services-phenotype.properties
 116.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-file/www/DirectoryReader.js
 93.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/play-services-tagmanager.properties
 147.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 59.set=ANDROID_RESOURCE
-168.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout/notification_template_big_media_narrow_custom.xml
+168.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png
 122.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 143.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-file/www/FileError.js
 174.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
@@ -133,7 +133,7 @@
 94.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/firebase-abt.properties
 148.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 69.set=ANDROID_RESOURCE
-169.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png
+169.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout/notification_template_big_media_narrow_custom.xml
 123.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 144.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/play-services-base.properties
 175.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
@@ -243,7 +243,7 @@
 100.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 140.set=ANDROID_RESOURCE
 187.set=JAVA_RESOURCE
-4.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/notification_bg.xml
+4.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-hdpi-v4/googleg_standard_color_18.png
 152.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 101.set=ASSET
 96.set=ASSET
@@ -291,7 +291,7 @@
 178.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 101.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 150.set=ANDROID_RESOURCE
-5.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-hdpi-v4/googleg_standard_color_18.png
+5.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/notification_bg.xml
 153.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 180.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 111.set=JAVA_RESOURCE
@@ -327,7 +327,7 @@
 142.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar
 121.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/firebase-messaging.properties
 0.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
-173.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xxhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png
+173.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/common_google_signin_btn_icon_dark_normal.xml
 107.set=ANDROID_RESOURCE
 153.set=ANDROID_RESOURCE
 19.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout/notification_template_big_media.xml
@@ -380,7 +380,7 @@ count=194
 122.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-media/www/MediaError.js
 13.set=ANDROID_RESOURCE
 1.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
-174.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/common_google_signin_btn_icon_dark_normal.xml
+174.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xxhdpi-v4/common_google_signin_btn_icon_light_normal_background.9.png
 117.set=ANDROID_RESOURCE
 1.set=ANDROID_RESOURCE
 163.set=JAVA_RESOURCE
@@ -442,7 +442,7 @@ count=194
 134.set=ANDROID_RESOURCE
 75.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-file/www/fileSystems-roots.js
 129.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
-50.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout-v17/notification_template_custom_big.xml
+50.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout-v17/notification_template_big_media.xml
 104.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 156.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug
 8.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-xhdpi-v4/notification_bg_normal.9.png
@@ -492,7 +492,7 @@ count=194
 24.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable/common_google_signin_btn_icon_disabled.xml
 144.set=JAVA_RESOURCE
 76.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar/play-services-tasks.properties
-51.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout-v17/notification_template_big_media.xml
+51.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/layout-v17/notification_template_custom_big.xml
 105.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 9.file=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/assets/debug/www/js/index.js
 157.base=/Users/rbadillo/Desktop/near-trivias-app/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_

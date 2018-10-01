@@ -1,25 +1,5 @@
 var exec = require('cordova/exec');
 
-exports.initFirebase = function (success, error) {
-  exec(success, error, "FirebasePlugin", "initFirebase", []);
-};
-
-exports.initCrashlytics = function (success, error) {
-  exec(success, error, "FirebasePlugin", "initCrashlytics", []);
-};
-
-exports.initAnalytics = function (success, error) {
-  exec(success, error, "FirebasePlugin", "initAnalytics", []);
-};
-
-exports.initPerformance = function (success, error) {
-  exec(success, error, "FirebasePlugin", "initPerformance", []);
-};
-
-exports.initRemoteConfig = function (success, error) {
-  exec(success, error, "FirebasePlugin", "initRemoteConfig", []);
-};
-
 exports.getVerificationID = function (number, success, error) {
   exec(success, error, "FirebasePlugin", "getVerificationID", [number]);
 };
@@ -78,6 +58,10 @@ exports.logEvent = function (name, params, success, error) {
 
 exports.logError = function (message, success, error) {
   exec(success, error, "FirebasePlugin", "logError", [message]);
+};
+
+exports.setCrashlyticsUserId = function (userId, success, error) {
+    exec(success, error, "FirebasePlugin", "setCrashlyticsUserId", [userId]);
 };
 
 exports.setScreenName = function (name, success, error) {

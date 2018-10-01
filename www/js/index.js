@@ -53,6 +53,14 @@ var app = {
         // Now safe to use device APIs
         console.log("DEVICE READY")
 
+        // Auto Populate Login Screen
+        if(window.localStorage["player"] != undefined && window.localStorage["player"].length &&
+          window.localStorage["player_passwd"] != undefined  && window.localStorage["player_passwd"].length)
+        {
+          $('#nickname_login').text(window.localStorage["player"]);
+          $('#password').text(window.localStorage["player_passwd"]);
+        }
+
         app.getNextGameDetails(function(){
           console.log("getNextGameDetails callback")
         });
@@ -369,6 +377,7 @@ var app = {
           if(window.localStorage["player"] == undefined)
           {
             window.localStorage["player"] = $('#nickname_login').val().trim();
+            window.localStorage["player_passwd"] = $('#password').val().trim();
           }
 
           if(window.localStorage["player"].length)
@@ -428,6 +437,7 @@ var app = {
           if(window.localStorage["player"] == undefined)
           {
             window.localStorage["player"] = $('#nickname_login').val().trim();
+            window.localStorage["player_passwd"] = $('#password').val().trim();
           }
 
           if(window.localStorage["player"].length)
